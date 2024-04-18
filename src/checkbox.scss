@@ -1,0 +1,77 @@
+.product-content {
+  position: relative;
+  .product-content__intro {
+    margin-bottom: 40px;
+  }
+  .product-filter-item {
+    margin-bottom: 38px;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+    h5 {
+      font-weight: 300;
+      font-size: 13px;
+      margin-bottom: 19px;
+      strong {
+        font-weight: 700;
+      }
+    }
+    .checkbox-color-wrapper {
+      .checkbox-color {
+        width: 30px;
+        height: 30px;
+        margin-right: 8px;
+        border: none;
+
+        .checkbox__check {
+          border: 1px solid #d4d4d4;
+        }
+        .checkbox__color {
+          top: 4px;
+          left: 4px;
+          right: 4px;
+          bottom: 4px;
+        }
+      }
+    }
+  }
+  .product__prices {
+    display: flex;
+    h4 {
+      font-weight: 400;
+      color: #ff0000;
+      font-size: 18px;
+    }
+    span {
+      margin-left: 30px;
+      font-weight: 400;
+      font-size: 18px;
+      color: #cecece;
+    }
+  }
+  .product__id {
+    top: -10px;
+    right: 0;
+    text-align: right;
+    line-height: 146%;
+    color: #cecece;
+    font-size: 12px;
+    position: absolute;
+  }
+  .product__name {
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 9px;
+  }
+  .product-on-sale {
+    background-color: #ff0000;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 9px;
+    text-transform: uppercase;
+    border-radius: 40px;
+    margin-bottom: 15px;
+    display: inline-block;
+  }
+}

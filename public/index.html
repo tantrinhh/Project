@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <meta property="og:image" content="../src/assets/Logo.png" />
+    <link rel="icon" href="../src/assets/Logo.png" />
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+  <footer>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+      intent="WELCOME"
+      chat-title="Chatbot"
+      agent-id="f4003a1c-6600-4fef-9a39-333e27725323"
+      language-code="vi"
+    ></df-messenger>
+  </footer>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDIunL7_88xNe0xIMTpr3WXkB0Oft-L2us",
+      authDomain: "web-sale-frontend.firebaseapp.com",
+      projectId: "web-sale-frontend",
+      storageBucket: "web-sale-frontend.appspot.com",
+      messagingSenderId: "372620470143",
+      appId: "1:372620470143:web:70dcb118a83e1e78225c4a",
+      measurementId: "G-FMWE92Y7E1",
+    };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+</html>

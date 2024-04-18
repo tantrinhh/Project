@@ -1,0 +1,17 @@
+.cart-container {
+  position: relative;
+}
+
+.cart-products {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: none;
+  width: 900px;
+  height: 600px;
+  overflow: auto;
+}
+
+.cart-products.active {
+  display: block;
+}
