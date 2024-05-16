@@ -1,6 +1,7 @@
-const NEXT_PUBLIC_PRODUCTION_URL = "http://localhost:3000/";
+const NEXT_PUBLIC_PRODUCTION_URL = "https://backend-pi-coral.vercel.app/";
 const NEXT_PUBLIC_DEVELOPMENT_URL =
-  process.env.NEXT_PUBLIC_DEVELOPMENT_URL || "http://localhost:3000/";
+  process.env.NEXT_PUBLIC_DEVELOPMENT_URL ||
+  "https://backend-pi-coral.vercel.app/";
 const currentUrl = typeof window !== "undefined" ? window.location.href : "";
 const developmentMode =
   currentUrl.includes("localhost") ||
