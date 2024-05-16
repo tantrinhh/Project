@@ -4,7 +4,7 @@ import LayoutPage from "../../Components/Layout/Layout_Page";
 const productComparison = () => {
   return (
     <div className="bg-[#FFFFFF]">
-      <LayoutPage>
+      <LayoutPage title="Fashion Shop | Comparison">
         <ProductComparison />
       </LayoutPage>
     </div>

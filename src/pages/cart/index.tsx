@@ -6,7 +6,7 @@ import MainCart from "../../Components/Cart/Cart";
 const Cart = () => {
   return (
     <div className="bg-[#FFFFFF]">
-      <LayoutPage>
+      <LayoutPage title="Fashion Shop | Cart">
         <SubCart />
         <MainCart />
       </LayoutPage>

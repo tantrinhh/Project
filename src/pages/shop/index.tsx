@@ -8,7 +8,7 @@ const shop = () => {
   return (
     <div className="bg-[#FFFFFF]">
       <GoToTop />
-      <LayoutPage>
+      <LayoutPage title="Fashion Shop | Shop">
         <SubShop />
         <Main />
       </LayoutPage>

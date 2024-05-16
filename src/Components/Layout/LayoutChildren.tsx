@@ -3,9 +3,8 @@ import Footer from "./Footer";
 type LayoutPageProps = {
   children?: React.ReactNode;
   title?: any;
-  image?: any;
 };
-const LayoutChildren = ({ children, title, image }: LayoutPageProps) => {
+const LayoutChildren = ({ children, title }: LayoutPageProps) => {
   return (
     <>
       <Header />

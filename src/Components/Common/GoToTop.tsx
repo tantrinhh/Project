@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 
 const GoToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollRatio, setScrollRatio] = useState(0);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>(
+    undefined
+  );
 
   const goToBtn = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -19,14 +22,17 @@ const GoToTop = () => {
     const scrolled = winScroll / height;
 
     setScrollRatio(scrolled);
+    setIsVisible(true); // Hiển thị nút khi người dùng cuộn chuột
 
-    if (winScroll > 80) {
-      setIsVisible(true);
-    } else {
+    // Reset timeout khi người dùng cuộn chuột
+    clearTimeout(timeoutId);
+    const id = setTimeout(() => {
       setIsVisible(false);
-    }
+    }, 2000); // ẩn nút sau 1 giây không hoạt động cuộn chuột
+    setTimeoutId(id);
   };
 
+  window.addEventListener("scroll", listenToScroll);
   useEffect(() => {
     window.addEventListener("scroll", listenToScroll);
     return () => window.removeEventListener("scroll", listenToScroll);
@@ -64,7 +70,6 @@ const GoToTop = () => {
     </Wrapper>
   );
 };
-
 const Wrapper = styled.section`
   display: flex;
   justify-content: center;
@@ -112,15 +117,6 @@ const Wrapper = styled.section`
       border-radius: 45px;
       animation: changeBackground 5s linear infinite;
     }
-
-    // @keyframes gototop {
-    //   0% {
-    //     transform: translateY(-0.5rem);
-    //   }
-    //   100% {
-    //     transform: translateY(1rem);
-    //   }
-    // }
   }
   .circle {
     width: 3rem;

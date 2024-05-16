@@ -39,7 +39,7 @@ export const productSelectors = productEntity.getSelectors(
 export const getProduct = createAsyncThunk<Product[], void, AppThunkConfig>(
   "product/getProducts",
   async (_, { extra: { api } }) => {
-    const res = await api.get<Product[], any>("products");
+    const res = await api.get<Product[], any>("product");
     return res;
   }
 );

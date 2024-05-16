@@ -56,7 +56,7 @@ const Main: React.FC = () => {
   const totalPages = Math.ceil(
     productsSelector.length / (+productPerPage || 1)
   );
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 25000000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 2500]);
   // Sử dụng cả hai bộ lọc
 
   const productPerPageNumber = +productPerPage || 1; // Chuyển đổi productPerPage thành số và mặc định là 1 nếu không hợp lệ
@@ -140,7 +140,7 @@ const Main: React.FC = () => {
               onChange={handlePriceRangeChange}
               valueLabelDisplay="off"
               min={0}
-              max={25000000} // Set the maximum price value
+              max={2500} // Set the maximum price value
             />
             <Typography>
               Price Range: RP {priceRange[0].toLocaleString()} - RP{" "}
@@ -292,7 +292,11 @@ const Main: React.FC = () => {
                         : "opacity-100"
                     }`}
                   >
-                    <img src={product.image} alt="" className="w-[285px] " />
+                    <img
+                      src={product.image}
+                      alt=""
+                      className="w-[285px] h-[290px]  "
+                    />
                     {product.discount > 0 && (
                       <div
                         className={`absolute top-6  text-white rounded-full w-10 h-10 items-center text-center pt-2 bg-[#E97171] ${
@@ -325,19 +329,20 @@ const Main: React.FC = () => {
                       {product.discount > 0 ? (
                         <div className="flex items-center">
                           <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                            Rp {product.price.toLocaleString()}
+                            Rp {product.price.toLocaleString()} $
                           </h3>
                           <span className="text-[16px] text-[#B0B0B0] line-through ml-3">
                             Rp{" "}
                             {(
                               product.price +
                               product.price * (product.discount / 100)
-                            ).toLocaleString()}
+                            ).toLocaleString()}{" "}
+                            $
                           </span>
                         </div>
                       ) : (
                         <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                          Rp {product.price.toLocaleString()}
+                          Rp {product.price.toLocaleString()} $
                         </h3>
                       )}
                     </div>

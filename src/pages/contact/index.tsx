@@ -6,7 +6,7 @@ import LayoutPage from "../../Components/Layout/Layout_Page";
 const contact = () => {
   return (
     <div className="bg-[#FFFFFF]">
-      <LayoutPage>
+      <LayoutPage title="Fashion Shop | Contact">
         <SubContact />
         <Main />
       </LayoutPage>

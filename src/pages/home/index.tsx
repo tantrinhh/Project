@@ -5,7 +5,8 @@ const home = () => {
   return (
     <div className="bg-[#FFFFFF]">
       <GoToTop />
-      <LayoutChildren title="Fashion Shop | Home">
+      <LayoutChildren title="Fashion Shop | Home"
+      >
         <HomePage />
       </LayoutChildren>
     </div>

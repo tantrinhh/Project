@@ -226,7 +226,11 @@ const HomePage = () => {
                         : "opacity-100"
                     }`}
                   >
-                    <img src={product.image} alt="" className="w-[285px] " />
+                    <img
+                      src={product.image}
+                      alt=""
+                      className="w-[285px] h-[290px] "
+                    />
                     {product.discount > 0 && (
                       <div
                         className={`absolute top-6  text-white rounded-full w-10 h-10 items-center text-center pt-2 bg-[#E97171] ${
@@ -259,19 +263,20 @@ const HomePage = () => {
                       {product.discount > 0 ? (
                         <div className="flex items-center">
                           <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                            Rp {product.price.toLocaleString()}
+                            Rp {product.price.toLocaleString()} $
                           </h3>
                           <span className="text-[16px] text-[#B0B0B0] line-through ml-3">
                             Rp{" "}
                             {(
                               product.price +
                               product.price * (product.discount / 100)
-                            ).toLocaleString()}
+                            ).toLocaleString()}{" "}
+                            $
                           </span>
                         </div>
                       ) : (
                         <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                          Rp {product.price.toLocaleString()}
+                          Rp {product.price.toLocaleString()} $
                         </h3>
                       )}
                     </div>
@@ -311,7 +316,7 @@ const HomePage = () => {
           <SwiperSlide>
             <img
               src={
-                "https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/if_w_gt_730,w_730/fw23_brand_campaign_launch_hp_gender_visual_nav_womens_d_e31f24de86.jpg"
+                "https://owen.cdn.vccloud.vn/media/catalog/product/cache/01755127bd64f5dde3182fd2f139143a/t/s/tsn231460._7.jpg"
               }
               alt=""
             />
@@ -319,7 +324,7 @@ const HomePage = () => {
           <SwiperSlide>
             <img
               src={
-                "https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/if_w_gt_730,w_730/fw23_brand_campaign_launch_hp_gender_visual_nav_mens_d_db216f2797.jpg"
+                "https://owen.cdn.vccloud.vn/media/catalog/product/cache/01755127bd64f5dde3182fd2f139143a/q/g/qg242423.jpg"
               }
               alt=""
             />
@@ -327,17 +332,35 @@ const HomePage = () => {
           <SwiperSlide>
             <img
               src={
-                "https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/if_w_gt_730,w_730/fw23_brand_campaign_launch_hp_gender_visual_nav_kids_d_806511dc65.jpg"
+                " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStSE1lSqa1N4Dp7wlOUsdBs75bZyDl51EZuw&s"
               }
               alt=""
             />
           </SwiperSlide>
-          {/* <SwiperSlide>
-            <img src={image2} alt="" />
+          <SwiperSlide>
+            <img
+              src={
+                "https://owen.cdn.vccloud.vn/media/catalog/product/cache/01755127bd64f5dde3182fd2f139143a/t/s/tsn231460._7.jpg"
+              }
+              alt=""
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={image2} alt="" />
-          </SwiperSlide> */}
+            <img
+              src={
+                "https://owen.cdn.vccloud.vn/media/catalog/product/cache/01755127bd64f5dde3182fd2f139143a/q/g/qg242423.jpg"
+              }
+              alt=""
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img
+              src={
+                "https://img.lazcdn.com/g/p/0b5e877ceb05076da71319b8f02c0f94.jpg_720x720q80.jpg"
+              }
+              alt=""
+            />
+          </SwiperSlide>
         </Swiper>
       </div>
       <p className="text-center text-[20px] leading-7 font-semibold mt-20">
