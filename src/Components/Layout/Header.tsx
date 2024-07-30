@@ -62,16 +62,23 @@ const Header = () => {
   const calculateTotalQuantity = () => {
     return cartItems.reduce((total, item) => total + item.count, 0);
   };
+  const totalItems = cartItems.length;
+
   return (
     <>
       <div className="md:mb-[100px] mb-20">
         <div className="fixed z-50 w-full bg-[#FFFFFF] justify-between md:h-[100px] h-20 top-0 flex items-center px-10 ">
-          <div className="flex">
-            <div className="mt-1">
-              <img src={Logo} alt="" />
+          <a href="/">
+            {" "}
+            <div className="flex">
+              <div className="mt-1">
+                <img src={Logo} alt="" />
+              </div>
+              <div className="ml-1 font-bold text-[34px] leading-10">
+                Furniro
+              </div>
             </div>
-            <div className="ml-1 font-bold text-[34px] leading-10">Furniro</div>
-          </div>
+          </a>
 
           <div className="hidden md:flex">
             <ul className="list-none flex gap-x-10 justify-between font-medium text-lg leading-6">
@@ -109,17 +116,20 @@ const Header = () => {
                 <AiOutlineHeart style={{ width: "23px", height: "23px" }} />
               </Link>
             </div>
-
             <div
               className="cart-container"
               onMouseEnter={handleCartHover}
               onMouseLeave={handleCartLeave}
             >
               <Link to="/cart" onClick={scrollToTop}>
-                {" "}
                 <AiOutlineShoppingCart
                   style={{ width: "23px", height: "23px" }}
                 />
+                {totalItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1">
+                    {totalItems}
+                  </span>
+                )}
               </Link>
               <div className={`cart-products ${isCartOpen ? "active" : ""}`}>
                 <div className="bg-[#FFFFFF]  px-10">
@@ -246,7 +256,7 @@ const Header = () => {
               </div>
             </div>
             <div>
-              <Link to="/user">
+              <Link to="">
                 <FaUserCircle style={{ width: "23px", height: "23px" }} />
               </Link>
             </div>

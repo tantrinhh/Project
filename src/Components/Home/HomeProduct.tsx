@@ -1,6 +1,3 @@
-import Slider from "@mui/material/Slider";
-import Typography from "@mui/material/Typography";
-import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BiGitCompare } from "react-icons/bi";
 import { CiShare2 } from "react-icons/ci";
@@ -8,17 +5,13 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Vector1 from "../../assets/shop/Vector1.png";
-import Vector2 from "../../assets/shop/Vector2.png";
-import Vector3 from "../../assets/shop/Vector3.png";
 import { useAppDispatch } from "../../hooks/redux";
-
+import "../../index.css";
+import { RootState } from "../../services/redux/RootReducer";
 import {
   addToComparison,
   removeFromComparison,
 } from "../../services/redux/slices/compare/compare";
-import { RootState } from "../../services/redux/RootReducer";
-
 import {
   addToFavorites,
   removeFromFavorites,
@@ -27,10 +20,11 @@ import {
   getProduct,
   productSelectors,
 } from "../../services/redux/slices/product";
-import "react-toastify/dist/ReactToastify.css";
-import "../Home/styles.css";
+import { Product } from "../../services/redux/slices/product/type";
+import "./styles.css";
+import { useEffect } from "react";
 
-const Main: React.FC = () => {
+const HomeProduct = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -38,175 +32,43 @@ const Main: React.FC = () => {
   }, [dispatch]);
 
   const productsSelector = useSelector(productSelectors.selectAll);
-  const [searchTerm, setSearchTerm] = useState("");
-  const handleDetailProduct = (id: any) => {
+  console.log(productsSelector, "productsSelector");
+  const { comparedProducts } = useSelector((state: RootState) => state.compare);
+  const handleDetailProduct = (id: Product) => {
     navigate(`/product/${id}`);
   };
-  const { comparedProducts } = useSelector((state: RootState) => state.compare);
   const today: Date = new Date();
   function isProductNew(productsSelector: any): boolean {
     const productAddedDate: Date = new Date(productsSelector.dateAdded); // Chuyển đổi chuỗi thành Date
     const daysDifference: number = Math.ceil(
       (today.getTime() - productAddedDate.getTime()) / (1000 * 60 * 60 * 24)
     );
-    return daysDifference <= 110;
+    return daysDifference < 15;
   }
-  const [productPerPage, setProductPerPage] = useState<number | string>(10); // Số sản phẩm trên mỗi trang
-  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
-  const totalPages = Math.ceil(
-    productsSelector.length / (+productPerPage || 1)
-  );
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 2500]);
-  // Sử dụng cả hai bộ lọc
-
-  const productPerPageNumber = +productPerPage || 1; // Chuyển đổi productPerPage thành số và mặc định là 1 nếu không hợp lệ
-  const indexOfLastProduct = currentPage * productPerPageNumber;
-  const indexOfFirstProduct = indexOfLastProduct - productPerPageNumber;
-
-  const filteredProducts = productsSelector
-    .filter(
-      (product) =>
-        product.price >= priceRange[0] &&
-        product.price <= priceRange[1] &&
-        (searchTerm
-          ? product.name.toLowerCase().includes(searchTerm.toLowerCase())
-          : true)
-    )
-    .slice(indexOfFirstProduct, indexOfLastProduct);
-  // Xử lý khi người dùng chuyển trang
-  const handlePageChange = (page: any) => {
-    setCurrentPage(page);
-  };
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  // Xử lý nút "Previous"
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+  //const [comparisonDone, setComparisonDone] = useState(false);
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth", // Cuộn mượt lên đầu trang
     });
   };
-  const handlePriceRangeChange = (
-    event: Event,
-    newValue: number | number[]
-  ) => {
-    if (Array.isArray(newValue)) {
-      setPriceRange(newValue as [number, number]);
-    }
-  };
   const favorites = useSelector((state: RootState) => state.favorite.list);
-
-  // Handle search term change
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
   return (
-    <>
-      <div className="bg-[#FAF3EA] py-5 md:px-16 mb-10">
-        <div className="flex md:justify-between max-md:flex-col justify-center items-center text-center">
-          <div className="flex gap-x-5 items-center text-center">
-            <div className="mt-1">
-              <img src={Vector1} alt="" />
-            </div>
-            <p className="text-xl font-normal leading-[30px] text-[#000000]">
-              Filter
-            </p>
-            <div className="mt-1">
-              <img src={Vector2} alt="" />
-            </div>
-            <div className="">
-              <img src={Vector3} alt="" />
-            </div>
-            <div>|</div>
-            <div className="text-base font-normal leading-6 text-[#000000]">
-              Showing 1–16 of 32 results
-            </div>
-          </div>
-          <div>
-            <Typography variant="h6" gutterBottom>
-              Price Range Selector
-            </Typography>
-            <Slider
-              value={priceRange}
-              onChange={handlePriceRangeChange}
-              valueLabelDisplay="off"
-              min={0}
-              max={2500} // Set the maximum price value
-            />
-            <Typography>
-              Price Range: RP {priceRange[0].toLocaleString()} - RP{" "}
-              {priceRange[1].toLocaleString()}
-            </Typography>
-          </div>
-          <div className="flex gap-x-5 max-md:mt-4  ">
-            <div className="flex items-center gap-x-2">
-              <label className="  text-xl font-normal leading-[30px] text-[#000000]">
-                Show
-              </label>
-              <div className="mt-2">
-                <input
-                  type="number" // Sử dụng type="number"
-                  className="md:w-14 w-11 md:h-14 h-10 md:px-3 px-1 rounded-md border-0 py-1.5 text-[#000000] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder=""
-                  value={productPerPage}
-                  onChange={(e) => {
-                    const inputValue = parseInt(e.target.value, 10); // Chuyển đổi giá trị nhập thành số nguyên
-                    if (!isNaN(inputValue)) {
-                      // Nếu giá trị là một số hợp lệ
-                      const maxProductPerPage = productsSelector.length; // Giới hạn tối đa là tổng số sản phẩm
-                      let newProductPerPage = Math.min(
-                        inputValue,
-                        maxProductPerPage
-                      ); // Chọn giá trị nhỏ hơn hoặc bằng tổng số sản phẩm
-                      if (newProductPerPage < 1) {
-                        // Nếu giá trị nhỏ hơn 1, đặt giá trị mới thành 1
-                        newProductPerPage = 1;
-                      }
-                      setProductPerPage(newProductPerPage);
-                    }
-                  }}
-                />
-              </div>
-            </div>
-            <div className="flex items-center gap-x-2 ">
-              <label className="text-xl font-normal leading-[30px] text-[#000000]">
-                Short by
-              </label>
-              <div className="mt-2">
-                <input
-                  className=" max-w-[148px] md:px-4 px-2 md:h-10 h-8 rounded-md border-0 py-1.5 text-[#000000] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-[#9F9F9F] placeholder:text-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Default"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="my-20 container gap-x-5 gap-y-7 ">
-        <div className="grid max-md: justify-center md:grid-cols-4  gap-y-14 ">
-          {filteredProducts.map((product: any) => {
+    <div>
+      {" "}
+      <div className="my-20 container gap-x-5 gap-y-7">
+        <h1 className="text-center text-[40px] font-bold mb-5">Our Products</h1>
+        <div className="grid max-md: justify-center md:grid-cols-4  gap-y-14">
+          {productsSelector?.map((product: any) => {
             const isProductInComparison = comparedProducts.some(
               (p: any) => p.id === product.id
             );
             const disableComparison =
               comparedProducts.length >= 2 && !isProductInComparison;
             const opacityClass = disableComparison ? " opacity-50" : "";
-
             const isProductInFavorites = favorites.some(
               (item) => item.id === product.id
             );
-
             return (
               <div key={product.id} className={`   ${opacityClass}`}>
                 <div className="relative z-10 cursor-pointer">
@@ -295,7 +157,7 @@ const Main: React.FC = () => {
                     <img
                       src={product.image}
                       alt=""
-                      className="w-[285px] h-[290px]  "
+                      className="w-[285px] h-[290px] "
                     />
                     {product.discount > 0 && (
                       <div
@@ -353,46 +215,11 @@ const Main: React.FC = () => {
           })}
         </div>
       </div>
-      <div className="flex justify-center mt-4 my-20">
-        <button
-          onClick={handlePrevPage}
-          className={`px-4 py-2 mx-2 rounded-lg ${
-            currentPage === 1
-              ? "bg-gray-200 cursor-not-allowed"
-              : "bg-[#B88E2F] text-white"
-          }`}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        {/* Hiển thị các nút trang */}
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={`px-4 py-2 mx-2 rounded-lg ${
-              currentPage === index + 1
-                ? "bg-[#B88E2F] text-white"
-                : "bg-gray-200"
-            }`}
-          >
-            {index + 1}
-          </button>
-        ))}
-        <button
-          onClick={handleNextPage}
-          className={`px-4 py-2 mx-2 rounded-lg ${
-            currentPage === totalPages
-              ? "bg-gray-200 cursor-not-allowed"
-              : "bg-[#B88E2F] text-white"
-          }`}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
-    </>
+      <button className="w-[245px] max-md:mx-[25%] h-[48px] text-[#B88E2F] text-[16px] mt-10 font-bold border-solid border-2 border-[#B88E2F] mx-[41%]">
+        Show More
+      </button>
+    </div>
   );
 };
 
-export default Main;
+export default HomeProduct;
