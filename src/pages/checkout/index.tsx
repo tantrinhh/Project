@@ -7,6 +7,7 @@ const checkout = () => {
   return (
     <div className="bg-[#FFFFFF]">
       <LayoutPage title="Fashion Shop | Checkout">
+        <div className="mt-[130px]"></div>
         <SubCheckout />
         <CheckOut />
       </LayoutPage>

@@ -1,0 +1,27 @@
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.marquee-content {
+  width: 100%;
+  white-space: nowrap;
+  display: inline-block;
+  animation: marquee 60s linear infinite;
+  animation-play-state: running;
+  animation-delay: -9s; /* Đảm bảo không có khoảng trễ */
+}
+
+.marquee-content > div {
+  flex-shrink: 0;
+}

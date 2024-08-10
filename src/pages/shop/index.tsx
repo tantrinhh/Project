@@ -9,6 +9,7 @@ const shop = () => {
     <div className="bg-[#FFFFFF]">
       <GoToTop />
       <LayoutPage title="Fashion Shop | Shop">
+        <div className="mt-[130px]"></div>
         <SubShop />
         <Main />
       </LayoutPage>

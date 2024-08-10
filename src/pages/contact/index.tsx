@@ -7,6 +7,7 @@ const contact = () => {
   return (
     <div className="bg-[#FFFFFF]">
       <LayoutPage title="Fashion Shop | Contact">
+        <div className="mt-[130px]"></div>
         <SubContact />
         <Main />
       </LayoutPage>

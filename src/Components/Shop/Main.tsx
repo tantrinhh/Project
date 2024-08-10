@@ -29,6 +29,8 @@ import {
 } from "../../services/redux/slices/product";
 import "react-toastify/dist/ReactToastify.css";
 import "../Home/styles.css";
+import { FiSearch } from "react-icons/fi";
+import Search from "../Common/Search";
 
 const Main: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -36,7 +38,6 @@ const Main: React.FC = () => {
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
-
   const productsSelector = useSelector(productSelectors.selectAll);
   const [searchTerm, setSearchTerm] = useState("");
   const handleDetailProduct = (id: any) => {
@@ -51,14 +52,14 @@ const Main: React.FC = () => {
     );
     return daysDifference <= 110;
   }
-  const [productPerPage, setProductPerPage] = useState<number | string>(10); // Số sản phẩm trên mỗi trang
+  const [productPerPage, setProductPerPage] = useState<number | string>(8); // Số sản phẩm trên mỗi trang
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
   const totalPages = Math.ceil(
     productsSelector.length / (+productPerPage || 1)
   );
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 2500]);
   // Sử dụng cả hai bộ lọc
-
+  const [isShowModalSearch, setIsShowModalSearch] = useState(false);
   const productPerPageNumber = +productPerPage || 1; // Chuyển đổi productPerPage thành số và mặc định là 1 nếu không hợp lệ
   const indexOfLastProduct = currentPage * productPerPageNumber;
   const indexOfFirstProduct = indexOfLastProduct - productPerPageNumber;
@@ -73,7 +74,13 @@ const Main: React.FC = () => {
           : true)
     )
     .slice(indexOfFirstProduct, indexOfLastProduct);
-  // Xử lý khi người dùng chuyển trang
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+  const noProductsFound = filteredProducts.length === 0;
+  const handleClearSearch = () => {
+    setSearchTerm(""); // Xóa dữ liệu trong ô tìm kiếm
+  };
   const handlePageChange = (page: any) => {
     setCurrentPage(page);
   };
@@ -106,8 +113,12 @@ const Main: React.FC = () => {
   const favorites = useSelector((state: RootState) => state.favorite.list);
 
   // Handle search term change
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+
+  const handleSearch = () => {
+    setIsShowModalSearch(true);
+  };
+  const handleClose = () => {
+    setIsShowModalSearch(false);
   };
   return (
     <>
@@ -155,7 +166,7 @@ const Main: React.FC = () => {
               <div className="mt-2">
                 <input
                   type="number" // Sử dụng type="number"
-                  className="md:w-14 w-11 md:h-14 h-10 md:px-3 px-1 rounded-md border-0 py-1.5 text-[#000000] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="md:w-14 w-11 md:h-10 h-10 md:px-3 px-1 rounded-md border-0 py-1.5 text-[#000000] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder=""
                   value={productPerPage}
                   onChange={(e) => {
@@ -177,181 +188,196 @@ const Main: React.FC = () => {
                 />
               </div>
             </div>
-            <div className="flex items-center gap-x-2 ">
+            <div className="flex items-center gap-x-2 my-auto">
               <label className="text-xl font-normal leading-[30px] text-[#000000]">
                 Short by
               </label>
-              <div className="mt-2">
+              <div className="mt-6 items-center">
                 <input
-                  className=" max-w-[148px] md:px-4 px-2 md:h-10 h-8 rounded-md border-0 py-1.5 text-[#000000] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-[#9F9F9F] placeholder:text-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Default"
+                  className=" max-w-[148px] md:pr-4 md:pl-7 px-2 md:h-10 h-8 items-center my-auto -mt-5 rounded-md border-0 py-1.5 text-[#000000] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-[#9F9F9F] placeholder:text-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  // placeholder="Default"
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
+                <div
+                  onClick={() => handleSearch()}
+                  className="-top-[30px] relative left-2 w-[23px] cursor-pointer"
+                >
+                  <FiSearch style={{ width: "18px", height: "18px" }} />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className="my-20 container gap-x-5 gap-y-7 ">
-        <div className="grid max-md: justify-center md:grid-cols-4  gap-y-14 ">
-          {filteredProducts.map((product: any) => {
-            const isProductInComparison = comparedProducts.some(
-              (p: any) => p.id === product.id
-            );
-            const disableComparison =
-              comparedProducts.length >= 2 && !isProductInComparison;
-            const opacityClass = disableComparison ? " opacity-50" : "";
+        {noProductsFound ? (
+          <p
+            className="text-center text-red-500 cursor-pointer"
+            onClick={handleClearSearch}
+          >
+            Không tìm thấy sản phẩm
+          </p>
+        ) : (
+          <div className="grid max-md: justify-center md:grid-cols-4  gap-y-14 ">
+            {filteredProducts.map((product: any) => {
+              const isProductInComparison = comparedProducts.some(
+                (p: any) => p.id === product.id
+              );
+              const disableComparison =
+                comparedProducts.length >= 2 && !isProductInComparison;
+              const opacityClass = disableComparison ? " opacity-50" : "";
 
-            const isProductInFavorites = favorites.some(
-              (item) => item.id === product.id
-            );
+              const isProductInFavorites = favorites.some(
+                (item) => item.id === product.id
+              );
 
-            return (
-              <div key={product.id} className={`   ${opacityClass}`}>
-                <div className="relative z-10 cursor-pointer">
-                  <div className="w-[285px] absolute inset-0 z-10 bg-[#3A3A3A] text-center flex flex-col gap-8 items-center justify-center opacity-0 hover:opacity-100 bg-opacity-50 duration-300">
-                    <div className="px-8 py-2 rounded bg-[#FFFFFF] text-[#B88E2F] cursor-pointer">
-                      <button
-                        onClick={(event: any) => {
-                          event.preventDefault();
-                          handleDetailProduct(product.id);
-                          scrollToTop();
-                        }}
-                      >
-                        View product
-                      </button>
-                    </div>
-                    <div className="flex gap-5 text-[#FFFFFF] text-base leading-6 font-semibold">
-                      <div className="flex">
-                        <div className="mt-1">
-                          <CiShare2 />
-                        </div>
-                        <div>Share</div>
+              return (
+                <div key={product.id} className={`   ${opacityClass}`}>
+                  <div className="relative z-10 cursor-pointer">
+                    <div className="w-[285px] absolute inset-0 z-10 bg-[#3A3A3A] text-center flex flex-col gap-8 items-center justify-center opacity-0 hover:opacity-100 bg-opacity-50 duration-300">
+                      <div className="px-8 py-2 rounded bg-[#FFFFFF] text-[#B88E2F] cursor-pointer">
+                        <button
+                          onClick={(event: any) => {
+                            event.preventDefault();
+                            handleDetailProduct(product.id);
+                            scrollToTop();
+                          }}
+                        >
+                          View product
+                        </button>
                       </div>
-                      <div className="flex">
-                        <div className="mt-1">
-                          <BiGitCompare />
+                      <div className="flex gap-5 text-[#FFFFFF] text-base leading-6 font-semibold">
+                        <div className="flex">
+                          <div className="mt-1">
+                            <CiShare2 />
+                          </div>
+                          <div>Share</div>
                         </div>
+                        <div className="flex">
+                          <div className="mt-1">
+                            <BiGitCompare />
+                          </div>
 
-                        <div
-                          className={`cursor-pointer ${
-                            disableComparison
-                              ? "opacity-50 pointer-events-none"
-                              : ""
-                          }`}
-                          onClick={() => {
-                            if (!disableComparison) {
-                              if (isProductInComparison) {
-                                dispatch(removeFromComparison(product));
-                              } else {
-                                if (comparedProducts.length < 2) {
-                                  dispatch(addToComparison(product));
-                                  if (comparedProducts.length === 1) {
-                                    navigate("/productcomparison");
-                                    scrollToTop();
+                          <div
+                            className={`cursor-pointer ${
+                              disableComparison
+                                ? "opacity-50 pointer-events-none"
+                                : ""
+                            }`}
+                            onClick={() => {
+                              if (!disableComparison) {
+                                if (isProductInComparison) {
+                                  dispatch(removeFromComparison(product));
+                                } else {
+                                  if (comparedProducts.length < 2) {
+                                    dispatch(addToComparison(product));
+                                    if (comparedProducts.length === 1) {
+                                      navigate("/productcomparison");
+                                      scrollToTop();
+                                    }
                                   }
                                 }
                               }
+                            }}
+                          >
+                            {isProductInComparison ? "Remove" : "Compare"}
+                          </div>
+                        </div>
+                        <div
+                          className="flex cursor-pointer"
+                          onClick={() => {
+                            if (isProductInFavorites) {
+                              dispatch(removeFromFavorites(product));
+                              toast("Đã xóa khỏi danh sách yêu thích");
+                            } else {
+                              dispatch(addToFavorites(product));
+                              toast("Đã thêm vào danh sách yêu thích");
                             }
                           }}
                         >
-                          {isProductInComparison ? "Remove" : "Compare"}
+                          {isProductInFavorites ? (
+                            <span className="mt-1 inline-block">
+                              <AiFillHeart className="text-red-500" />
+                            </span>
+                          ) : (
+                            <span className="mt-1 inline-block animate-heartbeat">
+                              <AiOutlineHeart />
+                            </span>
+                          )}
+                          <div className="ml-0.5">Like</div>
                         </div>
                       </div>
-                      <div
-                        className="flex cursor-pointer"
-                        onClick={() => {
-                          if (isProductInFavorites) {
-                            dispatch(removeFromFavorites(product));
-                            toast("Đã xóa khỏi danh sách yêu thích");
-                          } else {
-                            dispatch(addToFavorites(product));
-                            toast("Đã thêm vào danh sách yêu thích");
-                          }
-                        }}
-                      >
-                        {isProductInFavorites ? (
-                          <span className="mt-1 inline-block">
-                            <AiFillHeart className="text-red-500" />
-                          </span>
-                        ) : (
-                          <span className="mt-1 inline-block animate-heartbeat">
-                            <AiOutlineHeart />
-                          </span>
-                        )}
-                        <div className="ml-0.5">Like</div>
-                      </div>
                     </div>
-                  </div>
 
-                  <div
-                    className={`relative ${
-                      isProductInComparison
-                        ? "border-2 border-red-500 w-[288px] animate-pulse"
-                        : "opacity-100"
-                    }`}
-                  >
-                    <img
-                      src={product.image}
-                      alt=""
-                      className="w-[285px] h-[290px]  "
-                    />
-                    {product.discount > 0 && (
-                      <div
-                        className={`absolute top-6  text-white rounded-full w-10 h-10 items-center text-center pt-2 bg-[#E97171] ${
-                          isProductInComparison
-                            ? "absolute right-8"
-                            : "absolute right-8 md:right-20"
-                        }`}
-                      >
-                        -{product.discount}%
-                      </div>
-                    )}
-                    {isProductNew(product) && (
-                      <div
-                        className={`absolute top-6  text-white rounded-full w-10 h-10 items-center text-center pt-2 bg-[#E97171] ${
-                          isProductInComparison
-                            ? "absolute right-8"
-                            : "absolute right-8 md:right-20"
-                        }`}
-                      >
-                        New
-                      </div>
-                    )}
-                    <div className="bg-[#F4F5F7] w-[285px] h-[145px] space-y-3 pl-5">
-                      <h2 className=" font-semibold leading-7 text-[#3A3A3A] pt-5 text-[24px]">
-                        {product.name}
-                      </h2>
-                      <p className="text-[16px] font-medium leading-6 text-[#898989]">
-                        {product.description}
-                      </p>
-                      {product.discount > 0 ? (
-                        <div className="flex items-center">
+                    <div
+                      className={`relative ${
+                        isProductInComparison
+                          ? "border-2 border-red-500 w-[288px] animate-pulse"
+                          : "opacity-100"
+                      }`}
+                    >
+                      <img
+                        src={product.image}
+                        alt=""
+                        className="w-[285px] h-[290px]  "
+                      />
+                      {product.discount > 0 && (
+                        <div
+                          className={`absolute top-6  text-white rounded-full w-10 h-10 items-center text-center pt-2 bg-[#E97171] ${
+                            isProductInComparison
+                              ? "absolute right-8"
+                              : "absolute right-8 md:right-20"
+                          }`}
+                        >
+                          -{product.discount}%
+                        </div>
+                      )}
+                      {isProductNew(product) && (
+                        <div
+                          className={`absolute top-6  text-white rounded-full w-10 h-10 items-center text-center pt-2 bg-[#E97171] ${
+                            isProductInComparison
+                              ? "absolute right-8"
+                              : "absolute right-8 md:right-20"
+                          }`}
+                        >
+                          New
+                        </div>
+                      )}
+                      <div className="bg-[#F4F5F7] w-[285px] h-[145px] space-y-3 pl-5">
+                        <h2 className=" font-semibold leading-7 text-[#3A3A3A] pt-5 text-[24px]">
+                          {product.name}
+                        </h2>
+                        <p className="text-[16px] font-medium leading-6 text-[#898989]">
+                          {product.description}
+                        </p>
+                        {product.discount > 0 ? (
+                          <div className="flex items-center">
+                            <h3 className="font-bold text-[20px] text-[#3A3A3A]">
+                              Rp {product.price.toLocaleString()} $
+                            </h3>
+                            <span className="text-[16px] text-[#B0B0B0] line-through ml-3">
+                              Rp{" "}
+                              {(
+                                product.price +
+                                product.price * (product.discount / 100)
+                              ).toLocaleString()}{" "}
+                              $
+                            </span>
+                          </div>
+                        ) : (
                           <h3 className="font-bold text-[20px] text-[#3A3A3A]">
                             Rp {product.price.toLocaleString()} $
                           </h3>
-                          <span className="text-[16px] text-[#B0B0B0] line-through ml-3">
-                            Rp{" "}
-                            {(
-                              product.price +
-                              product.price * (product.discount / 100)
-                            ).toLocaleString()}{" "}
-                            $
-                          </span>
-                        </div>
-                      ) : (
-                        <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                          Rp {product.price.toLocaleString()} $
-                        </h3>
-                      )}
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
       <div className="flex justify-center mt-4 my-20">
         <button
@@ -391,6 +417,17 @@ const Main: React.FC = () => {
           Next
         </button>
       </div>
+      {isShowModalSearch && (
+        <div className="fixed top-0 left-0 w-full h-full z-50 bg-black opacity-90" />
+      )}
+      {isShowModalSearch && (
+        <Search
+          show={isShowModalSearch}
+          handleClose={handleClose}
+          handleSearchChange={handleSearchChange} // Truyền đúng hàm xử lý tìm kiếm
+          searchTerm={searchTerm}
+        />
+      )}
     </>
   );
 };

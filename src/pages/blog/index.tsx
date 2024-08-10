@@ -7,6 +7,7 @@ const blog = () => {
   return (
     <div className="bg-[#FFFFFF]">
       <LayoutPage title="Fashion Shop | Blog">
+        <div className="mt-[130px]"></div>
         <Subblog />
         <Blog />
       </LayoutPage>

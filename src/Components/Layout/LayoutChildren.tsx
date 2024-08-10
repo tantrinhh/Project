@@ -1,5 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
+import HeaderTop from "./HeaderTop";
 type LayoutPageProps = {
   children?: React.ReactNode;
   title?: any;
@@ -7,6 +8,7 @@ type LayoutPageProps = {
 const LayoutChildren = ({ children, title }: LayoutPageProps) => {
   return (
     <>
+      <HeaderTop />
       <Header />
       <title>{title || "Fashion Shop "}</title>
       {children}

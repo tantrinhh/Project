@@ -7,6 +7,7 @@ const Cart = () => {
   return (
     <div className="bg-[#FFFFFF]">
       <LayoutPage title="Fashion Shop | Cart">
+        <div className="mt-[130px]"></div>
         <SubCart />
         <MainCart />
       </LayoutPage>

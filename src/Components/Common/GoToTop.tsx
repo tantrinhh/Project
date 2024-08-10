@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 
 const GoToTop = () => {
@@ -33,10 +33,10 @@ const GoToTop = () => {
   };
 
   window.addEventListener("scroll", listenToScroll);
-  useEffect(() => {
-    window.addEventListener("scroll", listenToScroll);
-    return () => window.removeEventListener("scroll", listenToScroll);
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", listenToScroll);
+  //   return () => window.removeEventListener("scroll", listenToScroll);
+  // }, []);
   return (
     <Wrapper className="">
       {isVisible && (

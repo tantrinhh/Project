@@ -6,6 +6,7 @@ const SingleProduct = () => {
   return (
     <div className="bg-[#FFFFFF]">
       <LayoutChildren>
+        <div className="mt-[130px]"></div>
         <Main />
       </LayoutChildren>
     </div>

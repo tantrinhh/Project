@@ -32,7 +32,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state: RootState) => state.cart);
   const [isCartOpen, setIsCartOpen] = useState(false);
-
   const removeFromCart = (productId: any) => {
     dispatch(removeProduct(productId));
   };
@@ -66,8 +65,8 @@ const Header = () => {
 
   return (
     <>
-      <div className="md:mb-[100px] mb-20">
-        <div className="fixed z-50 w-full bg-[#FFFFFF] justify-between md:h-[100px] h-20 top-0 flex items-center px-10 ">
+      <div className="md:mb-[100px] mb-20 mt-14">
+        <div className="fixed z-40 w-full bg-[#FFFFFF] justify-between md:h-[100px] h-20 top-8 flex items-center px-10 ">
           <a href="/">
             {" "}
             <div className="flex">
@@ -79,7 +78,6 @@ const Header = () => {
               </div>
             </div>
           </a>
-
           <div className="hidden md:flex">
             <ul className="list-none flex gap-x-10 justify-between font-medium text-lg leading-6">
               <div className="hover:text-[#B88E2F]">
@@ -105,11 +103,7 @@ const Header = () => {
               </div>
             </ul>
           </div>
-
           <div className="hidden md:flex gap-x-8">
-            <div>
-              <FiSearch style={{ width: "23px", height: "23px" }} />
-            </div>
             <div>
               <Link to="/favorite" onClick={scrollToTop}>
                 {" "}

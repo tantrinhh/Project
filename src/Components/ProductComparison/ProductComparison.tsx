@@ -20,7 +20,7 @@ const ProductComparison = () => {
   const [hasDeletedProduct, setHasDeletedProduct] = useState(false);
   const { comparedProducts } = useSelector((state: RootState) => state.compare);
   console.log(comparedProducts, "comparedProducts");
-
+  console.log(hasDeletedProduct);
   const handleSelectChange = (event: any) => {
     const selectedOption = event.target.value;
     if (selectedOption === "home") {
@@ -164,7 +164,7 @@ const ProductComparison = () => {
                             <li className="text-xl font-normal mt-2">
                               Rs. {item.price.toLocaleString()}
                             </li>
-                            <li className="text-xl font-normal mt-5 flex flex-row space-x-2">
+                            <li className="text-base font-normal mt-5 flex flex-row space-x-2">
                               {sizes?.map((item: any, index: any) => (
                                 <div
                                   key={index}
@@ -174,7 +174,7 @@ const ProductComparison = () => {
                                 </div>
                               ))}
                             </li>
-                            <li className="text-xl font-normal mt-4 flex flex-row">
+                            <li className="text-xl font-normal mt-4 flex flex-row space-x-2">
                               {colors?.map((item: any, index: any) => (
                                 <div
                                   style={{
