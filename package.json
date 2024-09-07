@@ -45,7 +45,8 @@
     "util": "^0.12.5",
     "web-vitals": "^2.1.0",
     "webpack": "^5.91.0",
-    "webpack-dev-server": "^5.0.4"
+    "webpack-dev-server": "^5.0.4",
+    "yarn": "^1.22.22"
   },
   "scripts": {
     "start": "react-scripts start",

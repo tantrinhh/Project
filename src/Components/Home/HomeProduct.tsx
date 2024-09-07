@@ -32,7 +32,7 @@ const HomeProduct = () => {
   }, [dispatch]);
 
   const productsSelector = useSelector(productSelectors.selectAll);
-  console.log(productsSelector, "productsSelector");
+  // console.log(productsSelector, "productsSelector");
   const { comparedProducts } = useSelector((state: RootState) => state.compare);
   const handleDetailProduct = (id: Product) => {
     navigate(`/product/${id}`);

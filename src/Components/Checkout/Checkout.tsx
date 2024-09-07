@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import ExcelJS from "exceljs";
 import {
   clearCart,
-  removeProduct,
+ 
 } from "../../services/redux/slices/cart/index";
 
 const MY_BANK = {
@@ -54,7 +54,7 @@ const Checkout = () => {
     setPaidPrice(price);
     const intervalId = setInterval(() => {
       checkPaid(price, content, intervalId, totalItems);
-    }, 3000); // Kiểm tra mỗi 1 giây
+    }, 1000); // Kiểm tra mỗi 1 giây
   };
 
   const checkPaid = async (
@@ -70,7 +70,7 @@ const Checkout = () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbz7KRChhMS6FapHMTw9Qwr5KWo9pt7-rphdM97aSgRxmS4GiDkAmFGE5jtG50OLTIxqGQ/exec"
+        "https://script.googleusercontent.com/macros/echo?user_content_key=K8ldbLjhCM94w2GMv5H5xmzoa0R2pgFDwdnetOEPy-TmiyZP2ls0Wm3nVzY9cJEbDbgrENBMVN24fr8LdUdP15X3GlsDP2Hdm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnM4JQq0Z7fUnSKSR2nAvYxwCYpEAi_TK-5Ah4NWHpyRyzR8-68ylaNgCELG_vjrPw70Qova-eFErmhOB1Bh7HRmcl-Fxpytz5Nz9Jw9Md8uu&lib=MLzaCfu6EFEf8Vw_OV5H2X_pOn16EJ51O"
       );
       const data = await response.json();
       const lastPaid = data.data[data.data.length - 1];

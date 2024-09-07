@@ -1,18 +1,14 @@
-import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "../../index.css";
-import { productSelectors } from "../../services/redux/slices/product";
 import "./styles.css";
 import HomeProduct from "./HomeProduct";
 import SupHome from "./SupHome";
 
 const HomePage = () => {
-  const productsSelector = useSelector(productSelectors.selectAll);
-  console.log(productsSelector, "productsSelector");
   return (
     <>
       <div>

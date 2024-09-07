@@ -8,8 +8,6 @@ import SingleProduct from "./pages/singleProduct";
 import Cart from "./pages/cart";
 import Home from "./pages/home";
 import { ToastContainer } from "react-toastify";
-import LogIn from "./pages/login/login";
-import User from "./pages/user/user";
 import Favorite from "./pages/favorite";
 
 function App() {
@@ -27,9 +25,6 @@ function App() {
           <Route path={`/product/:id`} element={<SingleProduct />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/favorite" element={<Favorite />} />
-
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/user" element={<User />} />
         </Routes>
       </Router>
       <ToastContainer autoClose={2000} />
