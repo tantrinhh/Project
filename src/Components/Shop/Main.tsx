@@ -192,7 +192,7 @@ const Main: React.FC = () => {
               <label className="text-xl font-normal leading-[30px] text-[#000000]">
                 Short by
               </label>
-              <div className="mt-6 items-center">
+              <div className="mt-10 items-center">
                 <input
                   className=" max-w-[148px] md:pr-4 md:pl-7 px-2 md:h-10 h-8 items-center my-auto -mt-5 rounded-md border-0 py-1.5 text-[#000000] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-[#9F9F9F] placeholder:text-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   // placeholder="Default"
@@ -201,7 +201,7 @@ const Main: React.FC = () => {
                 />
                 <div
                   onClick={() => handleSearch()}
-                  className="-top-[30px] relative left-2 w-[23px] cursor-pointer"
+                  className="-top-[30px] max-md:-top-6 relative left-2 w-[23px] cursor-pointer"
                 >
                   <FiSearch style={{ width: "18px", height: "18px" }} />
                 </div>

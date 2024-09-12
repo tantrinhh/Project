@@ -46,7 +46,7 @@ const Search = (props: any) => {
           onChange={(e) => setInputValue(e.target.value)}
         />
         <div
-          className="text-center relative -top-10 w-[25px] md:left-[1125px] cursor-pointer "
+          className="text-center relative -top-10 w-[25px] left-72 md:left-[1125px] cursor-pointer "
           onClick={handleStopListen}
         >
           <RiDeleteBack2Line style={{ width: "25px", height: "25px" }} />

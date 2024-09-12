@@ -446,7 +446,7 @@ const Checkout = () => {
               render={({ field: { onChange, value } }: any) => (
                 <div>
                   <label className="block tracking-wide text-[#000000] text-[16px] text-base font-medium mb-2">
-                    Địa chỉ
+                   Số nhà
                   </label>
                   <input
                     type="text"
@@ -462,39 +462,7 @@ const Checkout = () => {
               {errors.streetAddress?.message}
             </span>
           </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3">
-              <Controller
-                name="ZIPcode"
-                control={control}
-                rules={{
-                  required: {
-                    message: "Trường này không được để trống",
-                    value: true,
-                  },
-                  pattern: {
-                    value: /(^\d{5}$)|(^\d{5}-\d{4}$)/,
-                    message: "Không hợp lệ",
-                  },
-                }}
-                render={({ field: { onChange, value } }: any) => (
-                  <div>
-                    <label className="block tracking-wide text-[#000000] text-[16px] text-base font-medium mb-2">
-                      ZIP code
-                    </label>
-                    <input
-                      type="text"
-                      value={value}
-                      onChange={onChange}
-                      className="appearance-none block w-full h-[75px] bg-[#FFFFFF] text-[#000000] border border-[#9F9F9F] rounded-[10px] py-3 px-4 mb-3 leading-tight focus:outline-none"
-                      required
-                    />
-                  </div>
-                )}
-              />
-              <span className="text-red-500">{errors.ZIPcode?.message}</span>
-            </div>
-          </div>
+          
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full px-3">
               <Controller

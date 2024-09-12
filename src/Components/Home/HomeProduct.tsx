@@ -215,10 +215,14 @@ const HomeProduct = () => {
           })}
         </div>
       </div>
-      <button className="w-[245px] max-md:mx-[25%] h-[48px] text-[#B88E2F] text-[16px] mt-10 font-bold border-solid border-2 border-[#B88E2F] mx-[41%]">
-        Show More
-      </button>
+      <div>
+        <a   href="/shop">
+        <button className="w-[245px] max-md:mx-[25%] h-[48px] text-[#B88E2F] text-[16px] mt-10 font-bold border-solid border-2 border-[#B88E2F] mx-[41%]">
+          Show More
+        </button>
+        </a>
     </div>
+  </div>
   );
 };
 

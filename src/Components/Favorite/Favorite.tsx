@@ -8,7 +8,7 @@ const Favorites: React.FC = () => {
   const favorites = useSelector((state: RootState) => state.favorite.list);
 
   return (
-    <div className="my-10 space-y-5 mx-10">
+    <div className="mb-10 mt-32 space-y-5 mx-10">
       <h1 className="text-center font-bold text-[30px]">
         Your Favorite Products
       </h1>
