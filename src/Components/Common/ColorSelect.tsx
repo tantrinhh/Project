@@ -10,7 +10,7 @@ function ColorTabSelect({ colors, onSelect }: any) {
     onSelect(color);
   };
   return (
-    <div className="px-2 py-5">
+    <div className="md:px-2 py-5">
       <div className="flex space-x-4">
         {colors.map((item: any,index:any) => (
           <div

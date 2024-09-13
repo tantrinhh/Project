@@ -257,9 +257,9 @@ const Checkout = () => {
     dispatch(clearCart(totalItems));
   };
   return (
-    <div className="container grid grid-cols-2 mt-10">
+    <div className="container md:grid grid-cols-2 mt-10">
       <div className="col-span-1 space-y-5">
-        <h1 className="text-[36px] font-semibold leading-[54px]">
+        <h1 className="text-[36px] max-md:text-center font-semibold leading-[54px]">
           Billing details
         </h1>
         <div className="w-full max-w-lg">
@@ -616,13 +616,13 @@ const Checkout = () => {
             throughout this website, to manage access to your account, and for
             other purposes described in our privacy policy.
           </p>
-          <button
+          <div className="max-md:items-center flex mx-auto justify-center max-md:mb-20"><button
             onClick={handleSubmit(onClick)}
-            className="border border-[#000000] rounded-2xl bg-white w-[318px] h-[64px] font-normal text-xl ml-20"
+            className="border border-[#000000] rounded-2xl  bg-white w-[318px] h-[64px] font-normal text-xl md:ml-20"
             type="submit"
           >
             Place order
-          </button>
+          </button></div>
           {paidContent && (
             <div>
               {/* <p>

@@ -11,7 +11,7 @@ function SizeTabSelect({ sizes, onSelect }: any) {
   };
 
   return (
-    <div className="px-2 py-5">
+    <div className="md:px-2 py-5">
       <div className="flex space-x-4">
         {sizes.map((size: any) => (
           <div

@@ -274,33 +274,19 @@ const Header = () => {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute z-50   right-0 flex flex-col items-end h-full max-h-full">
-            <div className=" pb-5 pt-3 h-full w-64 rounded-l-lg text-white  bg-black">
+          <div className="md:hidden fixed z-50   right-0 flex flex-col items-end h-full max-h-full">
+            <div className=" pb-5 pt-3 h-full w-56 rounded-l-lg text-white  bg-black">
               <div className="flex justify-between mx-2">
                 {" "}
-                <div className="flex">
+                <div className="flex mx-auto">
                   <div className="mt-1">
                     <img src={Logo} alt="" />
                   </div>
-                  <div className="ml-1 font-bold text-3xl leading-10">
+                  <div className="ml-2 mt-1 font-bold text-3xl leading-10">
                     Furniro
                   </div>
                 </div>
-                <div className="text-end mt-2">
-                  <button
-                    onClick={toggleMobileMenu}
-                    className={`transform ${
-                      isMobileMenuOpen ? "rotate-90" : "rotate-0"
-                    } transition-transform duration-300 ease-in-out`}
-                  >
-                    <HiOutlinePlus
-                      style={{
-                        width: "30px",
-                        height: "30px",
-                      }}
-                    />
-                  </button>
-                </div>
+           
               </div>
               <ul className="list-none pt-5 flex flex-col items-center gap-y-7 font-medium text-lg leading-6">
                 <div className="hover:text-[#B88E2F]">

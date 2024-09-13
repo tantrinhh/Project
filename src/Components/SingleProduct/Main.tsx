@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import { BiGitCompare } from "react-icons/bi";
 import { CiShare2 } from "react-icons/ci";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook,FaCartPlus  } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import stars from "../../assets/ProductComparison/stars.png";
@@ -101,7 +101,7 @@ const Main = () => {
   return (
     <>
       <div className="product-content">
-        <div className="bg-[#FAF3EA] py-5 px-20 mb-10">
+        <div className="bg-[#FAF3EA] py-5 px-20  mb-10">
           <div className="flex gap-8 items-center text-center">
             <div className="text-[#9F9F9F] font-normal text-base leading-6">
               Home
@@ -125,9 +125,9 @@ const Main = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-between mx-20">
+        <div className="md:flex justify-between md:mx-20 mx-14">
           <div className="flex gap-8">
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-10 max-md:hidden">
               <div>
                 {" "}
                 <img src={Group94} alt="" />
@@ -147,10 +147,10 @@ const Main = () => {
             </div>
             <div className="">
               {" "}
-              <img src={itemDetail[0].image} alt="" className="bg-[#F9F1E7]" />
+              <img src={itemDetail[0].image} alt="" className="bg-[#F9F1E7] w-96" />
             </div>
           </div>
-          <div className="max-w-[610px] px-10">
+          <div className="max-w-[610px] md:px-10">
             <div className=" font-medium text-[42px] leading-[63px] text-[#000000]">
               {itemDetail[0].name}
             </div>
@@ -192,7 +192,7 @@ const Main = () => {
                 onSelect={handleColorSelect}
               />
             </div>
-            <div className="flex items-center gap-14 font-normal text-xl leading-[30px] text-[#000000]">
+            <div className="flex items-center gap-14 max-md:justify-center  font-normal text-xl leading-[30px] text-[#000000]">
               <div className="quantity-buttons">
                 <div className="quantity-button flex flex-row rounded-md space-x-2">
                   <button
@@ -212,9 +212,9 @@ const Main = () => {
                   </button>
                 </div>
               </div>
-              <div className="h-10 px-5 border border-[#000000] pt-1.5 rounded-md">
+              <div className="h-10 max-md:hidden  px-5 border border-[#000000] pt-1.5 rounded-md">
                 {" "}
-                <button
+                <button 
                   onClick={() => {
                     handleCart();
                   }}
@@ -222,9 +222,17 @@ const Main = () => {
                   Add To Cart
                 </button>
               </div>
-              <div className="h-10 px-5 border border-[#000000] pt-1.5 rounded-md">
+              <div className="h-10 md:hidden  px-4 border border-[#000000] pt-1.5 rounded-md">
                 {" "}
+                <button className=""
+                  onClick={() => {
+                    handleCart();
+                  }}
+                >
+                      <FaCartPlus style={{ width: "28px", height: "28px" }}/>
+                </button>
               </div>
+        
             </div>
             <div>
               <div className="border-t border border-[#9F9F9F] mt-20"></div>
@@ -311,7 +319,7 @@ const Main = () => {
           <div>
             {" "}
             <div className="mb-20 container">
-              <div className="grid grid-cols-4 gap-y-14 ">
+              <div className="grid md:grid-cols-4 grid-cols-1 max-md:ml-14 gap-y-14 ">
                 {productsSelector.slice(0, 4).map((product: any) => {
                   const isProductInComparison = comparedProducts.some(
                     (p: any) => p.id === product.id

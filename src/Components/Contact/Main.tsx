@@ -15,7 +15,7 @@ const Main = () => {
             To Drop Us An Email. Our Staff Always Be There To Help You Out. Do
             Not Hesitate!
           </div>
-          <div className="md:hidden text-[#9F9F9F] md:text-lg text-base md:leading-6 leading-5 font-normal max-w-[645px] mx-auto">
+          <div className="md:hidden text-[#9F9F9F]  text-base  leading-5 font-normal max-w-[645px] mx-auto px-5">
             For More Information About Our Product & Services. Please Feel Free
             To Drop Us An Email.
           </div>
