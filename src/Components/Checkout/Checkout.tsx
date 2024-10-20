@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import ExcelJS from "exceljs";
 import {
   clearCart,
- 
+
 } from "../../services/redux/slices/cart/index";
 
 const MY_BANK = {
@@ -446,7 +446,7 @@ const Checkout = () => {
               render={({ field: { onChange, value } }: any) => (
                 <div>
                   <label className="block tracking-wide text-[#000000] text-[16px] text-base font-medium mb-2">
-                   Số nhà
+                    Số nhà
                   </label>
                   <input
                     type="text"
@@ -462,7 +462,7 @@ const Checkout = () => {
               {errors.streetAddress?.message}
             </span>
           </div>
-          
+
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full px-3">
               <Controller
@@ -572,29 +572,26 @@ const Checkout = () => {
         <div className="border-b-2 border-[#D9D9D9]"></div>
         <div className="space-y-5">
           <div className="flex gap-5">
-            <div className="rounded-full w-[14px] h-[14px] pt-1.5 bg-[#000000] mt-3"></div>
-            <p className="mt-2 text-base font-normal">Direct Bank Transfer</p>
+            <div className="flex items-center mb-4">
+              <input
+                id="default-radio-1"
+                type="radio"
+                defaultValue=""
+                name="default-radio"
+                className="w-4 h-4 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600  "
+              />
+              <label
+                htmlFor="default-radio-1"
+                className="ml-2 text-sm font-medium "
+              >
+                Chuyển khoản trực tiếp bằng QR
+              </label>
+            </div>
           </div>
-          <p className="font-light text-base text-[#9F9F9F] text-justify">
-            Make your payment directly into our bank account. Please use your
-            Order ID as the payment reference. Your order will not be shipped
-            until the funds have cleared in our account.
+          <p className="font-light text-base  text-justify">
+            Thanh toán trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng Mã đơn hàng của bạn làm tham chiếu thanh toán. Đơn hàng của bạn sẽ không được chuyển cho đến khi tiền được chuyển vào tài khoản của chúng tôi.
           </p>
-          <div className="flex items-center mb-4">
-            <input
-              id="default-radio-1"
-              type="radio"
-              defaultValue=""
-              name="default-radio"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F] focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-[#9F9F9F] focus:ring-2 dark:bg-[#9F9F9F] dark:border-[#9F9F9F]"
-            />
-            <label
-              htmlFor="default-radio-1"
-              className="ml-2 text-sm font-medium text-[#9F9F9F] dark:text-[#9F9F9F]"
-            >
-              Direct Bank Transfer
-            </label>
-          </div>
+
           <div className="flex items-center">
             <input
               defaultChecked
@@ -602,26 +599,24 @@ const Checkout = () => {
               type="radio"
               defaultValue=""
               name="default-radio"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F] focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-[#9F9F9F] focus:ring-2 dark:bg-[#9F9F9F] dark:border-[#9F9F9F]"
+              className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F] focus:ring-blue-500 dark:focus:ring-blue-600 "
             />
             <label
               htmlFor="default-radio-2"
-              className="ml-2 text-sm font-medium text-[#9F9F9F] dark:text-[#9F9F9F]"
+              className="ml-2 text-sm font-medium  "
             >
-              Cash On Delivery
+              Thanh toán khi nhận hàng
             </label>
           </div>
           <p className="text-base font-light text-justify">
-            Your personal data will be used to support your experience
-            throughout this website, to manage access to your account, and for
-            other purposes described in our privacy policy.
+            Dữ liệu cá nhân của bạn sẽ được sử dụng để hỗ trợ trải nghiệm của bạn trên toàn bộ trang web này, để quản lý quyền truy cập vào tài khoản của bạn và cho các mục đích khác được mô tả trong chính sách bảo mật của chúng tôi.
           </p>
           <div className="max-md:items-center flex mx-auto justify-center max-md:mb-20"><button
             onClick={handleSubmit(onClick)}
             className="border border-[#000000] rounded-2xl  bg-white w-[318px] h-[64px] font-normal text-xl md:ml-20"
             type="submit"
           >
-            Place order
+            Đặt hàng
           </button></div>
           {paidContent && (
             <div>

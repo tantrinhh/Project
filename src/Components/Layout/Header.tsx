@@ -82,23 +82,23 @@ const Header = () => {
             <ul className="list-none flex gap-x-10 justify-between font-medium text-lg leading-6">
               <div className="hover:text-[#B88E2F]">
                 <Link to="/" onClick={scrollToTop}>
-                  Home
+                  Trang chủ
                 </Link>
               </div>
               <div className="hover:text-[#B88E2F]">
                 <Link to="/shop" onClick={scrollToTop}>
-                  Shop
+                  Sản phẩm
                 </Link>
               </div>
               <div className="hover:text-[#B88E2F]">
                 <Link to="/blog" onClick={scrollToTop}>
-                  Blog
+                Về chúng tôi
                 </Link>
               </div>
 
               <div className="hover:text-[#B88E2F]">
                 <Link to="/contact" onClick={scrollToTop}>
-                  Contact
+                  Liên hệ
                 </Link>
               </div>
             </ul>
@@ -291,22 +291,22 @@ const Header = () => {
               <ul className="list-none pt-5 flex flex-col items-center gap-y-7 font-medium text-lg leading-6">
                 <div className="hover:text-[#B88E2F]">
                   <Link to="/" onClick={scrollToTop}>
-                    Home
+                    Trang chủ
                   </Link>
                 </div>
                 <div className="hover:text-[#B88E2F]">
                   <Link to="/shop" onClick={scrollToTop}>
-                    Shop
+                    Sản phẩm
                   </Link>
                 </div>
                 <div className="hover:text-[#B88E2F]">
                   <Link to="/blog" onClick={scrollToTop}>
-                    Blog
+                    Về chúng tôi
                   </Link>
                 </div>
                 <div className="hover:text-[#B88E2F]">
                   <Link to="/contact" onClick={scrollToTop}>
-                    Contact
+                    Liên hệ
                   </Link>
                 </div>
               </ul>

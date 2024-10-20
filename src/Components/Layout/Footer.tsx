@@ -18,38 +18,38 @@ const Footer = () => {
               </div>
               <div className="flex flex-col gap-y-8 text-lg font-medium  leading-6 ">
                 <div className="text-[#9F9F9F] max-md:text-xl max-md:text-[#000000] max-md:font-bold max-md:mt-8">
-                  Links
+                Liên kết
                 </div>
 
                 <div className="flex flex-col md:gap-y-8 gap-y-4 text-[#000000] ">
-                  <div>Home</div>
-                  <div>Shop</div>
-                  <div>About</div>
-                  <div>Contact</div>
+                  <div>Trang chủ</div>
+                  <div>Sản phẩm</div>
+                  <div>Về chúng tôi</div>
+                  <div>Liên hệ</div>
                 </div>
               </div>
               <div className=" flex flex-col gap-y-8 ">
                 <div className="text-[#9F9F9F] max-md:text-xl max-md:text-[#000000] max-md:font-bold max-md:mt-8">
-                  Help
+                  Trợ giúp
                 </div>
                 <div className=" flex flex-col md:gap-y-8 gap-y-4 text-[#000000] text-lg font-medium  leading-6">
-                  <div>Payment Options</div>
-                  <div>Returns</div>
-                  <div>Privacy Policies</div>
+                  <div>Thanh toán bằng QR</div>
+                  <div>Trả lại</div>
+                  <div>Chính sách bảo mật</div>
                 </div>
               </div>
               <div className=" flex flex-col md:gap-y-8 gap-y-4">
                 <div>
                   <div className="text-[#9F9F9F] max-md:text-xl max-md:text-[#000000] max-md:font-bold max-md:mt-8">
-                    Newsletter
+                  Bản tin
                   </div>
                 </div>
                 <div className="flex gap-x-5">
                   <div className="border-b  border-[#000000] ">
-                    Enter Your Email Address
+                  Nhập địa chỉ email của bạn
                   </div>
                   <div className="border-b  border-[#000000] text-[#000000] text-lg font-medium  leading-6">
-                    SUBSCRIBE
+                    Theo dõi
                   </div>
                 </div>
               </div>

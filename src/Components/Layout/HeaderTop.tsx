@@ -37,9 +37,9 @@ const HeaderTop: React.FC = () => {
             <div className="marquee-content flex gap-96">
               <div className="flex gap-5">
                 <div className="text-black text-subheading text-[12px] flex gap-x-2">
-                  <b className="text-black underline">FREE SHIPPING</b>
-                  <p>THIS WEEK ORDER OVER - $55</p>
-                  <b>BEST PLATFORM FOR ECOMMERCE</b>
+                  <b className="text-black underline">MIỄN PHÍ VẬN CHUYỂN</b>
+                  <p>ĐƠN HÀNG TRONG TUẦN NÀY TRÊN - 1.000.000đ</p>
+                  <b>NỀN TẢNG TỐT NHẤT CHO THƯƠNG MẠI ĐIỆN TỬ</b>
                 </div>
                 <div className="hidden lg:flex gap-1">
                   <div className="header_top__icon_wrapper text-blue-500">
@@ -58,9 +58,9 @@ const HeaderTop: React.FC = () => {
               </div>
               <div className="flex gap-5">
                 <div className="text-black text-subheading text-[12px] flex gap-x-2">
-                  <b className="text-black underline">FREE SHIPPING</b>
-                  <p>THIS WEEK ORDER OVER - $55</p>
-                  <b>BEST PLATFORM FOR ECOMMERCE</b>
+                <b className="text-black underline">MIỄN PHÍ VẬN CHUYỂN</b>
+                  <p>ĐƠN HÀNG TRONG TUẦN NÀY TRÊN - 1.000.000đ</p>
+                  <b>NỀN TẢNG TỐT NHẤT CHO THƯƠNG MẠI ĐIỆN TỬ</b>
                 </div>
                 <div className="hidden lg:flex gap-1">
                   <div className="header_top__icon_wrapper text-blue-500">
@@ -79,9 +79,9 @@ const HeaderTop: React.FC = () => {
               </div>
               <div className="flex gap-5">
                 <div className="text-black text-subheading text-[12px] flex gap-x-2">
-                  <b className="text-black underline">FREE SHIPPING</b>
-                  <p>THIS WEEK ORDER OVER - $55</p>
-                  <b>BEST PLATFORM FOR ECOMMERCE</b>
+                <b className="text-black underline">MIỄN PHÍ VẬN CHUYỂN</b>
+                  <p>ĐƠN HÀNG TRONG TUẦN NÀY TRÊN - 1.000.000đ</p>
+                  <b>NỀN TẢNG TỐT NHẤT CHO THƯƠNG MẠI ĐIỆN TỬ</b>
                 </div>
                 <div className="hidden lg:flex gap-1">
                   <div className="header_top__icon_wrapper text-blue-500">
@@ -100,10 +100,18 @@ const HeaderTop: React.FC = () => {
               </div>
               <div className="flex gap-5">
                 <div className="text-black text-subheading text-[12px] flex gap-x-2">
-                  <b className="text-black underline">FREE SHIPPING</b>
-                  <p>THIS WEEK ORDER OVER - $55</p>
-                  <b>BEST PLATFORM FOR ECOMMERCE</b>
+                <b className="text-black underline">MIỄN PHÍ VẬN CHUYỂN</b>
+                  <p>ĐƠN HÀNG TRONG TUẦN NÀY TRÊN - 1.000.000đ</p>
+                  <b>NỀN TẢNG TỐT NHẤT CHO THƯƠNG MẠI ĐIỆN TỬ</b>
                 </div>
+                <div><div><div></div>
+                <div></div>
+                <div></div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div></div>
                 <div className="hidden lg:flex gap-1">
                   <div className="header_top__icon_wrapper text-blue-500">
                     <BsFacebook />

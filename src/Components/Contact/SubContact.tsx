@@ -15,18 +15,18 @@ const SubContact = () => {
           </div>
           <div className="absolute -translate-x-2/4 top-1/2 left-1/2   -mt-7  item-center text-center  text-[#000000]  ">
             <p className="md:text-5xl text-2xl leading-[72px] font-medium">
-              Contact
+              Liên hệ
             </p>
           </div>
           <div className="flex absolute  -translate-x-2/4  md:bottom-24 bottom-1 left-1/2   lg:py-4  justify-between  text-base   leading-6  ">
             <button className="text-[#000000] lg:font-medium mr-2">
-              <Link to="/">Home</Link>
+              <Link to="/">Trang chủ</Link>
             </button>
             <div className="mt-2">
               {" "}
               <AiOutlineRight style={{ width: "12px", height: "12px" }} />
             </div>
-            <button className=" font-light ml-2">Contact</button>
+            <button className=" font-light ml-2">Liên hệ</button>
           </div>
         </div>
       </div>

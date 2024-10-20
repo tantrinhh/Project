@@ -7,17 +7,15 @@ const Main = () => {
     <>
       <div>
         <div className=" text-center my-32">
-          <div className="text-[#000000] font-semibold md:text-4xl text-3xl leading-[54px]">
-            Get In Touch With Us
+          <div className="text-[#000000] font-semibold md:text-4xl text-3xl mb-5 leading-[54px]">
+            Liên Hệ Với Chúng Tôi
           </div>
           <div className="max-md:hidden text-[#9F9F9F] md:text-lg text-base md:leading-6 leading-5 font-normal max-w-[645px] mx-auto">
-            For More Information About Our Product & Services. Please Feel Free
-            To Drop Us An Email. Our Staff Always Be There To Help You Out. Do
-            Not Hesitate!
+            Để biết thêm thông tin về sản phẩm và dịch vụ của chúng tôi. Xin vui lòng gửi email cho chúng tôi. Nhân viên của chúng tôi luôn có mặt để giúp đỡ bạn. Đừng ngần ngại!
           </div>
           <div className="md:hidden text-[#9F9F9F]  text-base  leading-5 font-normal max-w-[645px] mx-auto px-5">
-            For More Information About Our Product & Services. Please Feel Free
-            To Drop Us An Email.
+            Để biết thêm thông tin về sản phẩm và dịch vụ của chúng tôi. Vui lòng
+            gửi email cho chúng tôi.
           </div>
         </div>
         <div>
@@ -29,7 +27,7 @@ const Main = () => {
                   <img src={vitri} alt="" />
                 </div>
                 <div>
-                  <div className=" font-medium text-2xl leading-9">Address</div>
+                  <div className=" font-medium text-2xl leading-9">Địa chỉ</div>
                   <div className="text-base font-normal leading-6">
                     236 5th SE Avenue, New York NY10000, United States
                   </div>
@@ -41,7 +39,7 @@ const Main = () => {
                   <img src={phone} alt="" />{" "}
                 </div>
                 <div>
-                  <div className=" font-medium text-2xl leading-9"> Phone</div>
+                  <div className=" font-medium text-2xl leading-9"> Điện thoại</div>
                   <div className="text-base font-normal leading-6">
                     Mobile: +(84) 546-6789 <br /> Hotline: +(84) 456-6789
                   </div>
@@ -53,10 +51,10 @@ const Main = () => {
                 </div>
                 <div>
                   <div className=" font-medium text-2xl leading-9">
-                    Working Time
+                    Thời gian làm việc
                   </div>
                   <div className="text-base font-normal leading-6">
-                    Monday-Friday: 9:00 - 22:00 <br /> Saturday-Sunday: 9:00 -
+                    Thứ 2-Thứ 6: 9:00 - 22:00 <br /> Thứ bảy-Chủ nhật: 9:00 -
                     21:00
                   </div>
                 </div>
@@ -65,7 +63,7 @@ const Main = () => {
             <div className="col-span-2 grid max-w-[635px] px-10 ml-20  gap-y-8  ">
               <div className="items-center ">
                 <label className="   text-xl font-normal leading-[30px] text-[#000000]">
-                  Your name
+                  Tên của bạn
                 </label>
                 <div className="mt-2">
                   <input
@@ -76,7 +74,7 @@ const Main = () => {
               </div>
               <div className="items-center ">
                 <label className="   text-xl font-normal leading-[30px] text-[#000000]">
-                  Email address
+                  Địa chỉ email
                 </label>
                 <div className="mt-2">
                   <input
@@ -87,7 +85,7 @@ const Main = () => {
               </div>
               <div className="items-center  ">
                 <label className="   text-xl font-normal leading-[30px] text-[#000000]">
-                  Subject
+                  Gửi
                 </label>
                 <div className="mt-2">
                   <input
@@ -98,7 +96,7 @@ const Main = () => {
               </div>
               <div className="items-center  ">
                 <label className="   text-xl font-normal leading-[30px] text-[#000000]">
-                  Message
+                  Tin nhắn
                 </label>
                 <div className="mt-2">
                   <input
@@ -108,7 +106,7 @@ const Main = () => {
                 </div>
               </div>
               <div className="text-base font-normal max-w-[237px] h-[55px] text-center py-4 leading-6 bg-[#a98329] rounded-md text-[#fff]">
-                <button className="">Submit</button>
+                <button className="">Gửi</button>
               </div>
             </div>
           </div>

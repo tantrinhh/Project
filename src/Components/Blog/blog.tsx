@@ -1,46 +1,34 @@
 import { useState } from "react";
-import going from "../../assets/blog/Rectangle1.png";
 import exploring from "../../assets/blog/Rectangle2.png";
-import handmade from "../../assets/blog/Rectangle3.png";
 import admin from "../../assets/blog/dashiconsadmin-users.png";
 import calendar from "../../assets/blog/uiscalender.png";
 import tag from "../../assets/blog/citag.png";
 import post1 from "../../assets/blog/Rectangle4.png";
+import jacket from "../../assets/blog/post1.png";
 import post2 from "../../assets/blog/Rectangle5.png";
 import post3 from "../../assets/blog/Rectangle6.png";
-import post4 from "../../assets/blog/Rectangle7.png";
-import post5 from "../../assets/blog/Rectangle8.png";
 const Blog = () => {
   const posts = [
     {
       image: post1,
-      content: "Going all-in with millennial design",
+      content: "Đi sâu vào thiết kế của thế hệ thiên niên kỷ",
       time: "03 Aug 2022",
     },
     {
       image: post3,
-      content: "Exploring new ways of decorating",
+      content: "Khám phá những cách trang trí mới",
       time: "03 Aug 2022",
     },
     {
       image: post2,
-      content: "Handmade pieces that took time to make",
+      content: "Những tác phẩm thủ công mất nhiều thời gian để làm",
       time: "03 Aug 2022",
     },
-    {
-      image: post4,
-      content: "Modern home in Milan",
-      time: "03 Aug 2022",
-    },
-    {
-      image: post5,
-      content: "Colorful office redesign",
-      time: "03 Aug 2022",
-    },
+
   ];
   const blogs = [
     {
-      image: going,
+      image: jacket,
       icon1: admin,
       name1: "Admin",
       icon2: calendar,
@@ -48,8 +36,7 @@ const Blog = () => {
       icon3: tag,
       name3: "Wood",
       title: "Going all-in with millennial design",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mus mauris vitae ultricies leo integer malesuada nunc. In nulla posuere sollicitudin aliquam ultrices. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Libero enim sed faucibus turpis in. Cursus mattis molestie a iaculis at erat. Nibh cras pulvinar mattis nunc sed blandit libero. Pellentesque elit ullamcorper dignissim cras tincidunt. Pharetra et ultrices neque ornare aenean euismod elementum.",
+      content: "",
       read: "Read more",
     },
     {
@@ -61,47 +48,7 @@ const Blog = () => {
       icon3: tag,
       name3: "Handmade",
       title: "Exploring new ways of decorating",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mus mauris vitae ultricies leo integer malesuada nunc. In nulla posuere sollicitudin aliquam ultrices. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Libero enim sed faucibus turpis in. Cursus mattis molestie a iaculis at erat. Nibh cras pulvinar mattis nunc sed blandit libero. Pellentesque elit ullamcorper dignissim cras tincidunt. Pharetra et ultrices neque ornare aenean euismod elementum.",
-      read: "Read more",
-    },
-    {
-      image: handmade,
-      icon1: admin,
-      name1: "Admin",
-      icon2: calendar,
-      name2: "14 Oct 2022",
-      icon3: tag,
-      name3: "Wood",
-      title: "Handmade pieces that took time to make",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mus mauris vitae ultricies leo integer malesuada nunc. In nulla posuere sollicitudin aliquam ultrices. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Libero enim sed faucibus turpis in. Cursus mattis molestie a iaculis at erat. Nibh cras pulvinar mattis nunc sed blandit libero. Pellentesque elit ullamcorper dignissim cras tincidunt. Pharetra et ultrices neque ornare aenean euismod elementum.",
-      read: "Read more",
-    },
-    {
-      image: going,
-      icon1: admin,
-      name1: "Admin",
-      icon2: calendar,
-      name2: "14 Oct 2022",
-      icon3: tag,
-      name3: "Wood",
-      title: "Going all-in with millennial design",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mus mauris vitae ultricies leo integer malesuada nunc. In nulla posuere sollicitudin aliquam ultrices. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Libero enim sed faucibus turpis in. Cursus mattis molestie a iaculis at erat. Nibh cras pulvinar mattis nunc sed blandit libero. Pellentesque elit ullamcorper dignissim cras tincidunt. Pharetra et ultrices neque ornare aenean euismod elementum.",
-      read: "Read more",
-    },
-    {
-      image: exploring,
-      icon1: admin,
-      name1: "Admin",
-      icon2: calendar,
-      name2: "14 Oct 2022",
-      icon3: tag,
-      name3: "Handmade",
-      title: "Exploring new ways of decorating",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mus mauris vitae ultricies leo integer malesuada nunc. In nulla posuere sollicitudin aliquam ultrices. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Libero enim sed faucibus turpis in. Cursus mattis molestie a iaculis at erat. Nibh cras pulvinar mattis nunc sed blandit libero. Pellentesque elit ullamcorper dignissim cras tincidunt. Pharetra et ultrices neque ornare aenean euismod elementum.",
+      content: "",
       read: "Read more",
     },
   ];
@@ -140,7 +87,7 @@ const Blog = () => {
         <div className="col-span-2">
           {currentblogs.map((blog, index) => (
             <div key={index}>
-              <img src={blog.image} alt={`Blog ${index}`} />
+              <img className="w-[800px] h-[500px]" src={blog.image} alt={`Blog ${index}`} />
               <div className="md:grid grid-cols-2">
                 <div className="col-span-1 mt-5">
                   <div className="flex md:gap-10 gap-5">
@@ -243,11 +190,10 @@ const Blog = () => {
       <div className="flex justify-center mt-6 mb-20">
         <button
           onClick={handlePrevPage}
-          className={`px-4 py-2 mx-2 rounded-lg ${
-            currentPage === 1
-              ? "bg-gray-200 cursor-not-allowed"
-              : "bg-[#B88E2F] text-white"
-          }`}
+          className={`px-4 py-2 mx-2 rounded-lg ${currentPage === 1
+            ? "bg-gray-200 cursor-not-allowed"
+            : "bg-[#B88E2F] text-white"
+            }`}
           disabled={currentPage === 1}
         >
           Previous
@@ -257,22 +203,20 @@ const Blog = () => {
           <button
             key={index}
             onClick={() => handlePageChange(index + 1)}
-            className={`px-4 py-2 mx-2 rounded-lg ${
-              currentPage === index + 1
-                ? "bg-[#B88E2F] text-white"
-                : "bg-gray-200"
-            }`}
+            className={`px-4 py-2 mx-2 rounded-lg ${currentPage === index + 1
+              ? "bg-[#B88E2F] text-white"
+              : "bg-gray-200"
+              }`}
           >
             {index + 1}
           </button>
         ))}
         <button
           onClick={handleNextPage}
-          className={`px-4 py-2 mx-2 rounded-lg ${
-            currentPage === totalPages
-              ? "bg-gray-200 cursor-not-allowed"
-              : "bg-[#B88E2F] text-white"
-          }`}
+          className={`px-4 py-2 mx-2 rounded-lg ${currentPage === totalPages
+            ? "bg-gray-200 cursor-not-allowed"
+            : "bg-[#B88E2F] text-white"
+            }`}
           disabled={currentPage === totalPages}
         >
           Next

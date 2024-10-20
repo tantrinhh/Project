@@ -17,15 +17,16 @@ const HomePage = () => {
         <div className="bg-[#FCF8F3] mt-20 md:flex ">
           <div className="ml-20 mr-32 mt-10 max-md:mb-10">
             <h1 className="w-[422px] max-md:w-[350px] h-[96px] leading-[48px] font-bold text-[40px]">
-              50+ Beautiful rooms inspiration
+              50+ Ý tưởng thời trang đẹp
             </h1>
             <p className="w-[368px] h-[48px] font-medium leading-[24px] text-[16px] mt-1">
-              Our designer already made a lot of beautiful prototipe of rooms
-              that inspire
+              Nhà thiết kế của chúng tôi đã tạo ra rất nhiều thời trang đẹp
+              truyền cảm hứng
             </p>
-            <button className="bg-[#B88E2F] text-[#FFFFFF] w-[176px] h-[48px] mt-10">
-              Explore More
-            </button>
+            <a href="/shop"><button className="bg-[#B88E2F] text-[#FFFFFF] w-[176px] h-[48px] mt-10">
+              Khám phá thêm
+            </button></a>
+
           </div>
           <Swiper
             slidesPerView={2.5}
@@ -88,7 +89,7 @@ const HomePage = () => {
           </Swiper>
         </div>
         <p className="text-center text-[20px] leading-7 font-semibold mt-20">
-          Share your setup with
+          Chia sẻ thiết lập của bạn với
         </p>
         <h1 className="text-center text-[40px] leading-10 font-bold">
           #FuniroFurniture

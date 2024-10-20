@@ -175,11 +175,11 @@ const Cart = () => {
 
           <div className="items-center text-center bg-[#F9F1E7] px-20 pb-24 pt-10 rounded">
             <div className=" font-semibold text-[32px] leading-[48px] text-[#000000] mb-14">
-              Cart Totals
+              Tổng giỏ hàng
             </div>
             <div className="flex justify-between max-w-[256px]">
               <div className="text-base font-medium text-[#000000]">
-                Total Item
+                Tổng sản phẩm
               </div>
               <div className="text-[#9F9F9F] text-base font-normal">
                 {calculateTotalQuantity()}
@@ -187,7 +187,7 @@ const Cart = () => {
             </div>
             <div className="flex justify-between max-w-[256px] my-6">
               <div className="text-base font-medium text-[#000000]">
-                Total Price
+                Tổng tiền
               </div>
               <div className="font-mediun text-xl leading-[30px] text-[#B88E2F]">
                 Rs. {priceTotal().toLocaleString()}
@@ -196,7 +196,7 @@ const Cart = () => {
             <div>
               <button className="border border-black rounded-[15px] px-20 h-14 font-normal text-xl mt-2 ">
                 <Link to="/checkout" onClick={scrollToTop}>
-                  Check out
+                  Kiểm tra
                 </Link>
               </button>
             </div>

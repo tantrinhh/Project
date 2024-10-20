@@ -6,7 +6,7 @@ export interface Product {
   price: number;
   discount: number;
   dateAdded: number;
-  count: number;
-  sizes: [];
-  colors: [];
+  collection: number;
+  sizes: string[]; // Đây là mảng chứa các số (sizes)
+  colors: string[]; // Đây là mảng chứa các chuỗi (colors)
 }

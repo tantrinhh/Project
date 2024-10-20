@@ -10,38 +10,12 @@ const SupHome = () => {
           className="w-screen"
           alt=""
         />
-
-        <div className="absolute bg-[#FFF3E3] md:max-w-[643px]  md:px-5 px-3 md:py-10 py-5  rounded-md md:top-[253px] top-[84px] right-2 md:left-[739px] space-y-3 space-x-5">
-          <p className="md:text-[16px] text-sm md:mt-7 font-bold mx-5">
-            New Arrival
-          </p>
-          <h1 className="md:text-[52px] md:leading-[60px] text-xl text-[#B88E2F] font-bold">
-            Discover Our
-            <br /> New Collection
-          </h1>
-          <p className=" max-md:hidden text-lg  leading-6 font-medium pb-7">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-            tellus, luctus nec ullamcorper mattis.
-          </p>
-          <p className=" md:hidden text-sm leading-5 font-medium ">
-            Lorem ipsum dolor sit amet,
-            <br /> consectetur adipiscing elit.
-          </p>
-          <div className="md:mt-20">
-            <a href="/shop">
-              {" "}
-              <button className="bg-[#B88E2F] rounded-sm md:py-[25px] py-2 md:px-[72px] px-6 text-white">
-                BUY NOW
-              </button>
-            </a>
-          </div>
-        </div>
       </div>
       {/* Browse The Range */}
       <div className="mt-20 text-center justify-center items-center container">
-        <h1 className="text-[32px] font-bold">Browse The Range</h1>
+        <h1 className="text-[32px] font-bold">Khám phá ngay</h1>
         <p className="text-[20px]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Bộ sưu tập của chúng tôi có rất nhiều lựa chọn và tiên ích dành cho bạn
         </p>
         <div className="md:flex gap-20 mt-20 max-md:mx-10">
           <div className="flex flex-col justify-center">
@@ -51,7 +25,7 @@ const SupHome = () => {
               }
               alt=""
             />
-            <p className="font-bold mt-5 text-[24px]">Dining</p>
+            <p className="font-bold mt-5 text-[24px]">Quần Jean</p>
           </div>
           <div className="flex flex-col justify-center">
             <img
@@ -60,7 +34,7 @@ const SupHome = () => {
               }
               alt=""
             />
-            <p className="font-bold mt-5 text-[24px]">Living</p>
+            <p className="font-bold mt-5 text-[24px]">Áo Jecket</p>
           </div>
           <div className="flex flex-col justify-center">
             <img
@@ -69,7 +43,7 @@ const SupHome = () => {
               }
               alt=""
             />
-            <p className="font-bold mt-5 text-[24px]">Bedroom</p>
+            <p className="font-bold mt-5 text-[24px]">Áo Polo</p>
           </div>
         </div>
       </div>
