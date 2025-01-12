@@ -53,7 +53,7 @@ const Checkout = () => {
     setPaidPrice(price);
     const intervalId = setInterval(() => {
       checkPaid(price, content, intervalId, totalItems);
-    }, 1000); // Kiểm tra mỗi 1 giây
+    }, 2000); // Kiểm tra mỗi 1 giây
   };
 
   const checkPaid = async (
