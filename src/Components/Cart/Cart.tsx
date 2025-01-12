@@ -64,9 +64,9 @@ const Cart = () => {
           <h1 className="font-bold text-[30px]">
             Không có sản phẩm nào trong giỏ hàng
           </h1>
-          <button className="w-[245px] max-md:mx-[25%] h-[48px] text-[#B88E2F] text-[16px] mt-10 font-bold border-solid border-2 border-[#B88E2F] mx-[41%]">
-            <Link to="/" onClick={scrollToTop}>
-              Về trang chủ
+          <button className="w-[245px] rounded-lg max-md:mx-[25%] h-[48px] text-[#B88E2F] text-[16px] mt-10 font-bold border-solid border-2 border-[#B88E2F] mx-[41%]">
+            <Link to="/shop" onClick={scrollToTop}>
+              Mua sắm ngay
             </Link>
           </button>
         </div>

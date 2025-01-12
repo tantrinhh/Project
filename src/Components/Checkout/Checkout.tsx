@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../services/redux/RootReducer";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import ExcelJS from "exceljs";
 import {
   clearCart,
 
@@ -100,16 +99,13 @@ const Checkout = () => {
     defaultValues: {
       firstName: "",
       lastName: "",
-      companyName: "",
       country: "",
       city: "",
       district: "",
       ward: "",
       streetAddress: "",
       province: "",
-      ZIPcode: "",
       phone: "",
-      email: "",
       productName: "",
       price: 0,
       count: 0,
@@ -135,6 +131,25 @@ const Checkout = () => {
   const [districts, setDistricts] = useState<any[]>([]);
   const [wards, setWards] = useState<any[]>([]);
 
+  const handleLogin = async (e: React.FormEvent): Promise<void> => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post<FormData>("http://localhost:3000/oder", {
+
+      });
+
+      const userData = response.data; // Thông tin người dùng từ API
+      localStorage.setItem("user", JSON.stringify(userData)); // Lưu vào localStorage
+
+      // Chuyển hướng đến trang người dùng
+
+      ;
+    } catch (error) {
+      console.error("Error logging in:", error);
+
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -191,47 +206,43 @@ const Checkout = () => {
     setSelectedWard(selectedWardId);
   };
   const generateExcelFile = (data: FormData) => {
-    // Tạo một Workbook mới
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Order");
     const totalItem = calculateTotalQuantity();
     const totalPrice = priceTotal().toLocaleString();
-    // Định dạng cột trong tệp Excel
-    worksheet.columns = [
-      { header: "First Name", key: "firstName" },
-      { header: "Last Name", key: "lastName" },
-      { header: "Company Name", key: "companyName" },
-      { header: "Country", key: "country" },
-      { header: "City", key: "city" },
-      { header: "District", key: "district" },
-      { header: "Ward", key: "ward" },
-      { header: "Street Address", key: "streetAddress" },
-      { header: "ZIP code", key: "ZIPcode" },
-      { header: "Phone", key: "phone" },
-      { header: "Email", key: "email" },
-      { header: "Product", key: "product" },
-      // { header: 'Price', key: 'price' },
-      // { header: 'Count', key: 'count' },
-      // { header: 'Total', key: 'total' },
-      { header: "Total item", key: "totalItem" },
-      { header: "Total price", key: "totalPrice" },
-    ];
-    // Thêm dữ liệu từ biểu mẫu vào tệp Excel
+
+    // Cập nhật lại dữ liệu với số lượng và tổng giá trị
     data.totalItem = totalItem;
     data.totalPrice = totalPrice;
-    worksheet.addRow(data);
 
-    // Tạo tệp Excel và tải xuống
-    workbook.xlsx.writeBuffer().then((buffer) => {
-      const blob = new Blob([buffer], {
-        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    // Tạo một đối tượng chứa dữ liệu muốn gửi
+    const formData = new FormData();
+    formData.append('firstName', data.firstName);
+    formData.append('lastName', data.lastName);
+    formData.append('companyName', data.companyName || "");
+    formData.append('country', data.country);
+    formData.append('city', data.city);
+    formData.append('district', data.district);
+    formData.append('ward', data.ward);
+    formData.append('streetAddress', data.streetAddress);
+    formData.append('phone', data.phone);
+    formData.append('product', data.product);
+    formData.append('totalItem', data.totalItem.toString());
+    formData.append('totalPrice', data.totalPrice);
+
+    // Gửi dữ liệu về API Google Apps Script qua POST request
+    axios
+      .post(
+        "https://script.google.com/macros/s/AKfycbxg-7YIHqxxyJnENAbtmRAQo8nHT4CgZAwy6buCeQcKEMMKrur08-eP1mixeKCc3q_I/exec",
+        formData
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Dữ liệu đã được gửi thành công!");
+        }
+      })
+      .catch((error) => {
+        console.error("Error sending data:", error);
+        alert("Có lỗi khi gửi dữ liệu.");
       });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "order.xlsx";
-      a.click();
-    });
   };
   const onSubmit = (data: FormData) => {
     data.city = cities.find((city) => city.Id === selectedCity)?.Name || "";
@@ -243,7 +254,8 @@ const Checkout = () => {
     data.product = cartItems
       .map((item) => `${item.name} x ${item.count}`)
       .join(", ");
-    generateExcelFile(data);
+    console.log("dataa", data)
+    // generateExcelFile(data);
   };
   const onClick = (data: FormData) => {
     if (cartItems.length === 0) {
@@ -331,28 +343,6 @@ const Checkout = () => {
                 )}
               />
               <span className="text-red-500">{errors.lastName?.message}</span>
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3">
-              <Controller
-                name="companyName"
-                control={control}
-                render={({ field: { onChange, value } }: any) => (
-                  <div>
-                    <label className="block tracking-wide text-[#000000] text-[16px] text-base font-medium mb-2">
-                      Tên công ty (không bắt buộc)
-                    </label>
-                    <input
-                      type="text"
-                      value={value}
-                      onChange={onChange}
-                      className="appearance-none block w-full h-[75px] bg-[#FFFFFF] text-[#000000] border border-[#9F9F9F] rounded-[10px] py-3 px-4 mb-3 leading-tight focus:outline-none"
-                      required
-                    />
-                  </div>
-                )}
-              />
             </div>
           </div>
           <div className="inline-block relative w-full mb-6">
@@ -494,39 +484,6 @@ const Checkout = () => {
                 )}
               />
               <span className="text-red-500">{errors.phone?.message}</span>
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3">
-              <Controller
-                name="email"
-                control={control}
-                rules={{
-                  required: {
-                    message: "Trường này không được để trống",
-                    value: true,
-                  },
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Không hợp lệ",
-                  },
-                }}
-                render={({ field: { onChange, value } }: any) => (
-                  <div>
-                    <label className="block tracking-wide text-[#000000] text-[16px] text-base font-medium mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="text"
-                      value={value}
-                      onChange={onChange}
-                      className="appearance-none block w-full h-[75px] bg-[#FFFFFF] text-[#000000] border border-[#9F9F9F] rounded-[10px] py-3 px-4 mb-3 leading-tight focus:outline-none"
-                      required
-                    />
-                  </div>
-                )}
-              />
-              <span className="text-red-500">{errors.email?.message}</span>
             </div>
           </div>
         </div>

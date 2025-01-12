@@ -66,14 +66,14 @@ const Main: React.FC = () => {
     const daysDifference: number = Math.ceil(
       (today.getTime() - productAddedDate.getTime()) / (1000 * 60 * 60 * 24)
     );
-    return daysDifference <= 110;
+    return daysDifference < 10;
   }
   const [productPerPage, setProductPerPage] = useState<number | string>(8); // Số sản phẩm trên mỗi trang
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
   const totalPages = Math.ceil(
     productsSelector.length / (+productPerPage || 1)
   );
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
   // Sử dụng cả hai bộ lọc
   const [isShowModalSearch, setIsShowModalSearch] = useState(false);
   const productPerPageNumber = +productPerPage || 1; // Chuyển đổi productPerPage thành số và mặc định là 1 nếu không hợp lệ
@@ -178,11 +178,11 @@ const Main: React.FC = () => {
               onChange={handlePriceRangeChange}
               valueLabelDisplay="off"
               min={0}
-              max={100000} // Set the maximum price value
+              max={500000} // Set the maximum price value
             />
             <Typography>
-              Phạm Vi Giá: RP {priceRange[0].toLocaleString()} - RP{" "}
-              {priceRange[1].toLocaleString()}
+              Phạm Vi Giá:  {priceRange[0].toLocaleString()} đ - {" "}
+              {priceRange[1].toLocaleString()} đ
             </Typography>
           </div>
           <div className="flex gap-x-5 max-md:mt-4  ">
@@ -238,9 +238,9 @@ const Main: React.FC = () => {
         </div>
       </div>
       <div className="my-20 flex">
-        <div className="w-96 p-5 mr-10 ml-14 max-h-max border border-[#000]">
-          <div>
-            <div className="text-xl font-semibold mb-4">Danh sách sản phẩm </div>
+        <div className="w-80  mr-10 ml-14 max-h-max border-2 rounded-lg border-[#000]">
+          <div className="px-5">
+            <div className="text-xl font-semibold mb-4 ">Danh sách sản phẩm </div>
             <div>
               <div className="flex items-center mb-4">
                 <input
@@ -257,6 +257,7 @@ const Main: React.FC = () => {
                   Tất cả
                 </label>
               </div>
+
               <div className="flex items-center mb-4">
                 <input
                   id="collection-1"
@@ -339,8 +340,8 @@ const Main: React.FC = () => {
               </div>
             </div>
           </div>
-          <div></div>
-          <div>
+          <div className="border mb-5  border-[#000]"></div>
+          <div className="px-5">
             <div className="text-xl font-semibold mb-4">Kích thước</div>
             <div>
               <div className="flex items-center mb-4">
@@ -441,7 +442,8 @@ const Main: React.FC = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="border mb-5  border-[#000]"></div>
+          <div className="px-5">
             <div className="text-xl font-semibold mb-4">Màu sắc</div>
             <div>
               <div className="flex items-center mb-4">
@@ -543,17 +545,17 @@ const Main: React.FC = () => {
               </div>
             </div>
           </div>
+
         </div>
         <div>
           <div>
             <div className="flex gap-10">
-              <div className="text-xl font-semibold mb-4">Sắp xếp theo giá</div>
               <div>
                 <select
                   id="price"
                   value={selectedPriceOrder || ""}
                   onChange={handlePriceChange}
-                  className="block w-44 p-2 border border-gray-300 rounded-lg text-[#000] cursor-pointer"
+                  className="block w-44 p-2 mb-10 border border-gray-300 rounded-lg text-[#000] cursor-pointer"
                 >
                   <option value="">Chọn giá</option>
                   <option value={priceRange[0].toString()}>Giá từ thấp đến cao</option>
@@ -572,7 +574,7 @@ const Main: React.FC = () => {
                 Không tìm thấy sản phẩm
               </p>
             ) : (
-              <div className="grid max-md: justify-center md:grid-cols-3  gap-y-14 gap-x-10 ">
+              <div className="grid max-md: justify-center md:grid-cols-3  gap-y-14 gap-x-10  ">
                 {filteredProducts.map((product: any) => {
                   const isProductInComparison = comparedProducts.some(
                     (p: any) => p.id === product.id
@@ -586,9 +588,9 @@ const Main: React.FC = () => {
                   );
 
                   return (
-                    <div key={product.id} className={` ${opacityClass}`}>
-                      <div className="relative z-10 cursor-pointer">
-                        <div className="w-[285px] absolute inset-0 z-10 bg-[#3A3A3A] text-center flex flex-col gap-8 items-center justify-center opacity-0 hover:opacity-100 bg-opacity-50 duration-300">
+                    <div key={product.id} className={`border border-[#000] rounded-lg ${opacityClass}`}>
+                      <div className="relative  z-10 cursor-pointer">
+                        <div className="w-[285px]   absolute inset-0 z-10 bg-[#3A3A3A] text-center flex flex-col gap-8 items-center justify-center opacity-0 hover:opacity-100 bg-opacity-50 duration-300 rounded-lg">
                           <div className="px-8 py-2 rounded bg-[#FFFFFF] text-[#B88E2F] cursor-pointer">
                             <button
                               onClick={(event: any) => {
@@ -667,16 +669,16 @@ const Main: React.FC = () => {
                             : "opacity-100"
                             }`}
                         >
-                          <img
+                          <div className="w-[285px] h-[290px] "><img
                             src={product.image}
                             alt=""
-                            className="w-[285px] h-[290px]  "
-                          />
+                            className="w-[285px] h-[290px] rounded-lg "
+                          /></div>
                           {product.discount > 0 && (
                             <div
                               className={`absolute top-6  text-white rounded-full w-10 h-10 items-center text-center pt-2 bg-[#E97171] ${isProductInComparison
                                 ? "absolute right-8"
-                                : "absolute right-8 md:right-20"
+                                : "absolute right-8 md:right-10"
                                 }`}
                             >
                               -{product.discount}%
@@ -686,13 +688,13 @@ const Main: React.FC = () => {
                             <div
                               className={`absolute top-6  text-white rounded-full w-10 h-10 items-center text-center pt-2 bg-[#E97171] ${isProductInComparison
                                 ? "absolute right-8"
-                                : "absolute right-8 md:right-20"
+                                : "absolute right-8 md:right-10"
                                 }`}
                             >
                               New
                             </div>
                           )}
-                          <div className="bg-[#F4F5F7] w-[285px] h-[145px] space-y-3 pl-5">
+                          <div className="bg-[#F4F5F7] w-[285px] h-[145px] space-y-3 pl-5 rounded-b-lg">
                             <h2 className=" font-semibold leading-7 text-[#3A3A3A] pt-5 text-[24px]">
                               {product.name}
                             </h2>
@@ -700,10 +702,10 @@ const Main: React.FC = () => {
                             {product.discount > 0 ? (
                               <div className="flex items-center">
                                 <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                                  Rp {product.price.toLocaleString()} ₫
+                                  Giá {product.price.toLocaleString()} ₫
                                 </h3>
                                 <span className="text-[16px] text-[#B0B0B0] line-through ml-3">
-                                  Rp{" "}
+                                  Giá{" "}
                                   {(
                                     product.price +
                                     product.price * (product.discount / 100)
@@ -713,7 +715,7 @@ const Main: React.FC = () => {
                               </div>
                             ) : (
                               <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                                Rp {product.price.toLocaleString()} ₫
+                                Giá   {product.price.toLocaleString()} ₫
                               </h3>
                             )}
                           </div>

@@ -93,9 +93,9 @@ const Main = () => {
             </div>
           </div>
         </div>
-        <div className="md:flex justify-between md:mx-20 mx-14">
+        <div className="md:flex justify-center gap-32 md:mx-20 mx-14">
           <div className="flex gap-8">
-            <div className="flex flex-col gap-10 max-md:hidden">
+            {/* <div className="flex flex-col gap-10 max-md:hidden">
               <div>
                 {" "}
                 <img src={Group94} alt="" />
@@ -112,10 +112,13 @@ const Main = () => {
                 {" "}
                 <img src={Group98} alt="" />
               </div>
-            </div>
-            <div className="">
-              {" "}
-              <img src={itemDetail[0].image} alt="" className="bg-[#F9F1E7] w-96" />
+            </div> */}
+            <div className="w-[650px] h-[700px] bg-[#F9F1E7] overflow-hidden">
+              <img
+                src={itemDetail[0].image}
+                alt=""
+                className="w-[650px] h-[700px] object-cover"
+              />
             </div>
           </div>
           <div className="max-w-[610px] md:px-10">
