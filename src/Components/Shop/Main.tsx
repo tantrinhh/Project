@@ -476,7 +476,7 @@ const Main: React.FC = () => {
                 <label htmlFor="colors-Green"
                   className="ml-2 text-sm font-medium text-[#000] cursor-pointer"
                 >
-                  Green
+                  Xanh
                 </label>
               </div>
               <div className="flex items-center mb-4">
