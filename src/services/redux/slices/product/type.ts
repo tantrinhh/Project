@@ -9,4 +9,6 @@ export interface Product {
   collection: number;
   sizes: string[]; // Đây là mảng chứa các số (sizes)
   colors: string[]; // Đây là mảng chứa các chuỗi (colors)
+  brands: string;
+  quantity: number;
 }

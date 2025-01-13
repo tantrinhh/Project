@@ -40,6 +40,8 @@ const Main: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCollection, setSelectedCollection] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedBrands, setSelectedBrands] = useState<string | null>(null);
+
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedPriceOrder, setselectedPriceOrder] = useState<number | null>(null);
   const handleDetailProduct = (id: any) => {
@@ -55,7 +57,9 @@ const Main: React.FC = () => {
   const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedSize(event.target.value); // Chuyển value thành số
   };
-
+  const handleBrandsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedBrands(event.target.value);
+  };
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedColor(event.target.value);
   };
@@ -89,6 +93,8 @@ const Main: React.FC = () => {
         (selectedCollection === null || product.collection === selectedCollection) && // Lọc collection
         (selectedSize === null || product.sizes.includes(selectedSize)) && // Lọc size
         (selectedColor === null || product.colors.includes(selectedColor)) && // Lọc color
+        (selectedBrands === null || product.brands.includes(selectedBrands)) && // Lọc color
+
         (searchTerm ? product.name.toLowerCase().includes(searchTerm.toLowerCase()) : true)
     )
     .sort((a, b) => {
@@ -342,6 +348,108 @@ const Main: React.FC = () => {
           </div>
           <div className="border mb-5  border-[#000]"></div>
           <div className="px-5">
+            <div className="text-xl font-semibold mb-4">Thương hiệu</div>
+            <div>
+              <div className="flex items-center mb-4">
+                <input
+                  id="brands"
+                  type="radio"
+                  value=""
+                  name="brands"
+                  checked={selectedBrands === null}
+                  onChange={() => setSelectedBrands(null)}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F]"
+                />
+                <label htmlFor="brands" className="ml-2 text-sm font-medium text-[#000] cursor-pointer">
+                  Tất cả
+                </label>
+              </div>
+              <div className="flex items-center mb-4">
+                <input
+                  id="brands-GUCCI"
+                  type="radio"
+                  value="GUCCI"
+                  name="brands"
+                  checked={selectedBrands === "GUCCI"}
+                  onChange={handleBrandsChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F]"
+                />
+                <label htmlFor="brands-GUCCI" className="ml-2 text-sm font-medium text-[#000] cursor-pointer">
+
+                  GUCCI
+                </label>
+              </div>
+              <div className="flex items-center mb-4">
+                <input
+                  id="brands-VIETTIEP"
+                  type="radio"
+                  value="VIETTIEP"
+                  name="brands" checked={selectedBrands === "VIETTIEP"}
+                  onChange={handleBrandsChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F] focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-[#9F9F9F] focus:ring-2 dark:bg-[#9F9F9F] dark:border-[#9F9F9F]"
+                />
+                <label
+                  htmlFor="brands-VIETTIEP"
+                  className="ml-2 text-sm font-medium text-[#000] cursor-pointer"
+                >
+                  VIETTIEP
+                </label>
+              </div>
+              <div className="flex items-center mb-4">
+                <input
+                  id="brands-DIOR"
+                  type="radio"
+                  value="DIOR"
+                  name="brands"
+                  checked={selectedBrands === "DIOR"}
+                  onChange={handleBrandsChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F] focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-[#9F9F9F] focus:ring-2 dark:bg-[#9F9F9F] dark:border-[#9F9F9F]"
+                />
+                <label
+                  htmlFor="brands-DIOR"
+                  className="ml-2 text-sm font-medium text-[#000] cursor-pointer"
+                >
+                  DIOR
+                </label>
+              </div>
+              <div className="flex items-center mb-4">
+                <input
+                  id="brands-CHANEL"
+                  type="radio"
+                  value="CHANEL"
+                  name="brands"
+                  checked={selectedBrands === "CHANEL"}
+                  onChange={handleBrandsChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F] focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-[#9F9F9F] focus:ring-2 dark:bg-[#9F9F9F] dark:border-[#9F9F9F]"
+                />
+                <label
+                  htmlFor="brands-CHANEL"
+                  className="ml-2 text-sm font-medium text-[#000] cursor-pointer"
+                >
+                  CHANEL
+                </label>
+              </div>
+              <div className="flex items-center mb-4">
+                <input
+                  id="brands-PRADA"
+                  type="radio"
+                  value="PRADA"
+                  name="brands"
+                  checked={selectedBrands === "PRADA"}
+                  onChange={handleBrandsChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F] focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-[#9F9F9F] focus:ring-2 dark:bg-[#9F9F9F] dark:border-[#9F9F9F]"
+                />
+                <label
+                  htmlFor="brands-PRADA"
+                  className="ml-2 text-sm font-medium text-[#000] cursor-pointer"
+                >
+                  PRADA
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="border mb-5  border-[#000]"></div>
+          <div className="px-5">
             <div className="text-xl font-semibold mb-4">Kích thước</div>
             <div>
               <div className="flex items-center mb-4">
@@ -351,7 +459,7 @@ const Main: React.FC = () => {
                   value=""
                   name="sizes"
                   checked={selectedSize === null}
-                  onChange={() => setSelectedSize(null)}
+                  onChange={() => setSelectedBrands(null)}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F]"
                 />
                 <label htmlFor="sizes" className="ml-2 text-sm font-medium text-[#000] cursor-pointer">
@@ -701,11 +809,11 @@ const Main: React.FC = () => {
 
                             {product.discount > 0 ? (
                               <div className="flex items-center">
-                                <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                                  Giá {product.price.toLocaleString()} ₫
-                                </h3>
+                                <div className="flex text-[20px]"><div>Giá :</div> <div className="mt-[2px] ml-1 font-semibold leading-7 text-[#3A3A3A]  ">
+                                  {product.price.toLocaleString()} ₫
+                                </div></div>
                                 <span className="text-[16px] text-[#B0B0B0] line-through ml-3">
-                                  Giá{" "}
+                                  Giá :{" "}
                                   {(
                                     product.price +
                                     product.price * (product.discount / 100)
@@ -714,10 +822,17 @@ const Main: React.FC = () => {
                                 </span>
                               </div>
                             ) : (
-                              <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                                Giá   {product.price.toLocaleString()} ₫
-                              </h3>
+                              <div className="flex text-[20px]"><div>Giá :</div> <div className="mt-[2px] ml-1 font-semibold leading-7 text-[#3A3A3A]  ">
+                                {product.price.toLocaleString()} ₫
+                              </div></div>
                             )}
+
+
+
+                            <div className="flex text-[20px]"><div> Số lượng :</div> <div className="mt-[2px] ml-1 font-semibold leading-7 text-[#3A3A3A]  ">
+                              {product.quantity}
+                            </div></div>
+
                           </div>
                         </div>
                       </div>

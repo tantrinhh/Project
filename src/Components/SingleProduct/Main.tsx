@@ -8,10 +8,6 @@ import { FaFacebook, FaCartPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import stars from "../../assets/ProductComparison/stars.png";
-import Group94 from "../../assets/single-product/Group94.png";
-import Group96 from "../../assets/single-product/Group96.png";
-import Group97 from "../../assets/single-product/Group97.png";
-import Group98 from "../../assets/single-product/Group98.png";
 import { addProduct } from "../../services/redux/slices/cart";
 import { productSelectors } from "../../services/redux/slices/product";
 import ColorTabSelect from "../Common/ColorSelect";
@@ -72,14 +68,14 @@ const Main = () => {
         <div className="bg-[#FAF3EA] py-5 px-20  mb-10">
           <div className="flex gap-8 items-center text-center">
             <div className="text-[#9F9F9F] font-normal text-base leading-6">
-              Home
+              Trang chủ
             </div>
             <div className="mt-2 text-[#000000]">
               {" "}
               <AiOutlineRight style={{ width: "12px", height: "12px" }} />
             </div>
             <div className="text-[#9F9F9F] font-normal text-base leading-6">
-              Shop
+              Sản phẩm
             </div>
             <div className="mt-2 text-[#000000]">
               {" "}
@@ -121,12 +117,14 @@ const Main = () => {
               />
             </div>
           </div>
-          <div className="max-w-[610px] md:px-10">
-            <div className=" font-medium text-[42px] leading-[63px] text-[#000000]">
-              {itemDetail[0].name}
-            </div>
+          <div className="max-w-[610px] md:px-10 ">
+            <div className="flex items-center gap-3"> <div className="text-2xl">Sản phẩm :</div>
+              <div className=" font-medium text-[38px] leading-[63px] text-[#000000]">
+                {itemDetail[0].name}
+              </div></div>
+
             <div className="text-[#9F9F9F] font-medium text-2xl leading-9">
-              Rs.
+              Giá :
               {itemDetail[0].price.toLocaleString()}
             </div>
             <div className="flex gap-4 my-5">
@@ -139,15 +137,18 @@ const Main = () => {
               </div>
               <div className="text-[13px] text-[#9F9F9F] leading-[30px]">|</div>
               <div className="text-[13px] text-[#9F9F9F] leading-[30px]">
-                5 Customer Review
+                Đánh giá 5 sao
               </div>
             </div>
             <div>
+              <div className=" font-normal text-sm text-[#9F9F9F] mt-6 mb-2 ">
+                Mô tả :
+              </div>
               <p className="max-w-[424px]">{itemDetail[0].description}</p>{" "}
             </div>
             <div>
-              <div className=" font-normal text-sm text-[#9F9F9F] mt-6 mb-3">
-                Size
+              <div className=" font-normal text-sm text-[#9F9F9F] mt-6 ">
+                Kích thước :
               </div>
               <SizeTabSelect
                 sizes={itemDetail[0].sizes}
@@ -155,8 +156,8 @@ const Main = () => {
               />
             </div>
             <div>
-              <div className="font-normal text-sm text-[#9F9F9F] mt-6 mb-3">
-                Color
+              <div className="font-normal text-sm text-[#9F9F9F] mt-3">
+                Màu sắc :
               </div>
               <ColorTabSelect
                 colors={itemDetail[0].colors}
@@ -210,21 +211,11 @@ const Main = () => {
             </div>
             <div className="flex  my-10">
               <div className="mr-5 font-normal text-base text-[#9F9F9F] flex flex-col gap-y-2 ">
-                <div>SKU</div>
-                <div>Category</div>
-                <div>Tags</div>
+
                 <div>Share</div>
               </div>
               <div className="gap-5  flex flex-col gap-y-2 ">
-                <div className="font-normal text-base text-[#9F9F9F]">
-                  : SS001
-                </div>
-                <div className="font-normal text-base text-[#9F9F9F]">
-                  : Sofas
-                </div>
-                <div className="font-normal text-base text-[#9F9F9F]">
-                  : Sofa, Chair, Home, Shop
-                </div>
+
                 <div className="flex">
                   :
                   <div className="ml-2">

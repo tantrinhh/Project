@@ -9,7 +9,7 @@ const TopFooter = () => {
   return (
     <>
       <div className="bg-[#FAF3EA] md:py-24 py-20">
-        <div className="md:flex gap-24 md:mx-20 mx-10">
+        <div className="md:flex gap-[140px] md:mx-20 mx-10">
           <div className="flex md:gap-24 gap-7  ">
             <div className="flex">
               <div className="mt-1">
@@ -17,11 +17,11 @@ const TopFooter = () => {
               </div>
               <div className="ml-3">
                 <div className="font-semibold  md:text-2xl text-xl  leading-[38px] text-[#242424]">
-                  High Quality
+                  Chất lượng cao
                 </div>
 
                 <div className="text-[#898989] md:text-xl text-md font-medium leading-[30px]">
-                  crafted from top materials
+                  Chất liệu tốt nhất
                 </div>
               </div>
             </div>
@@ -31,10 +31,10 @@ const TopFooter = () => {
               </div>
               <div className="ml-3">
                 <div className=" font-semibold md:text-2xl text-xl md:leading-[38px] text-[#242424]">
-                  Warranty Protection
+                  Bảo hành
                 </div>
                 <div className="text-[#898989] md:text-xl text-md font-medium leading-[30px]">
-                  Over 2 years
+                  2 năm
                 </div>
               </div>
             </div>
@@ -47,10 +47,10 @@ const TopFooter = () => {
               </div>
               <div className="ml-3">
                 <div className=" font-semibold md:text-2xl text-xl md:leading-[38px] text-[#242424]">
-                  Free Shipping
+                  Miễn phí vận chuyển
                 </div>
                 <div className="text-[#898989] md:text-xl text-md font-medium leading-[30px]">
-                  Order over 150 $
+                  Đơn hàng từ 1.000.000đ
                 </div>
               </div>
             </div>
@@ -60,10 +60,10 @@ const TopFooter = () => {
               </div>
               <div className="ml-3">
                 <div className=" font-semibold md:text-2xl text-xl md:leading-[38px] text-[#242424]">
-                  24 / 7 Support
+                  Hỗ trợ 24/7
                 </div>
                 <div className="text-[#898989] md:text-xl text-md font-medium leading-[30px]">
-                  Dedicated support
+                  Hỗ trợ tận tình
                 </div>
               </div>
             </div>
