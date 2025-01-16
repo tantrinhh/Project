@@ -187,8 +187,8 @@ const Main: React.FC = () => {
               max={500000} // Set the maximum price value
             />
             <Typography>
-              Phạm Vi Giá:  {priceRange[0].toLocaleString()} đ - {" "}
-              {priceRange[1].toLocaleString()} đ
+              Phạm Vi Giá:  {priceRange[0]} đ - {" "}
+              {priceRange[1]} đ
             </Typography>
           </div>
           <div className="flex gap-x-5 max-md:mt-4  ">
@@ -810,20 +810,20 @@ const Main: React.FC = () => {
                             {product.discount > 0 ? (
                               <div className="flex items-center">
                                 <div className="flex text-[20px]"><div>Giá :</div> <div className="mt-[2px] ml-1 font-semibold leading-7 text-[#3A3A3A]  ">
-                                  {product.price.toLocaleString()} ₫
+                                  {product.price} ₫
                                 </div></div>
                                 <span className="text-[16px] text-[#B0B0B0] line-through ml-3">
                                   Giá :{" "}
                                   {(
                                     product.price +
                                     product.price * (product.discount / 100)
-                                  ).toLocaleString()}{" "}
+                                  )}{" "}
                                   ₫
                                 </span>
                               </div>
                             ) : (
                               <div className="flex text-[20px]"><div>Giá :</div> <div className="mt-[2px] ml-1 font-semibold leading-7 text-[#3A3A3A]  ">
-                                {product.price.toLocaleString()} ₫
+                                {product.price} ₫
                               </div></div>
                             )}
 

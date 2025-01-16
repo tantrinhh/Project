@@ -55,9 +55,8 @@ const ModalAdd = (props: any) => {
   return (
     <>
       <div
-        className={` z-50 fixed top-12  mx-36 bg-white ${
-          show ? "block" : "hidden"
-        }`}
+        className={` z-50 fixed top-12  mx-36 bg-white ${show ? "block" : "hidden"
+          }`}
       >
         <div className=" ">
           <div className=" mt-5 pr-10 w-full mx-auto px-10    overflow-y-auto max-h-[500px] items-center ">
@@ -74,11 +73,10 @@ const ModalAdd = (props: any) => {
                             </div>
 
                             <div
-                              className={`cursor-pointer ${
-                                disableComparison
+                              className={`cursor-pointer ${disableComparison
                                   ? "opacity-50 pointer-events-none"
                                   : ""
-                              }`}
+                                }`}
                               onClick={() => handleComparisonAndClose(product)}
                             >
                               {isProductInComparison ? "Remove" : "Compare"}
@@ -112,19 +110,19 @@ const ModalAdd = (props: any) => {
                           {product.discount > 0 ? (
                             <div className="flex items-center">
                               <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                                Rp {product.price.toLocaleString()}
+                                Rp {product.price}
                               </h3>
                               <span className="text-[16px] text-[#B0B0B0] line-through ml-3">
                                 Rp{" "}
                                 {(
                                   product.price +
                                   product.price * (product.discount / 100)
-                                ).toLocaleString()}
+                                )}
                               </span>
                             </div>
                           ) : (
                             <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                              Rp {product.price.toLocaleString()}
+                              Rp {product.price}
                             </h3>
                           )}
                         </div>

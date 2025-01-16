@@ -7,7 +7,7 @@ import {
   clearCart,
 
 } from "../../services/redux/slices/cart/index";
-
+import { useNavigate } from "react-router-dom";
 const MY_BANK = {
   BANK_ID: "MB",
   ACCOUNT_NO: "0363499267",
@@ -16,14 +16,12 @@ const MY_BANK = {
 interface FormData {
   firstName: string;
   lastName: string;
-  companyName: string;
   country: string;
   city: string;
   district: string;
   ward: string;
   streetAddress: string;
   province: string;
-  ZIPcode: string;
   phone: string;
   email: string;
   productName: string;
@@ -37,6 +35,8 @@ interface FormData {
 }
 
 const Checkout = () => {
+
+
   const dispatch = useDispatch();
   const [paidContent, setPaidContent] = useState<string>("");
   const [paidPrice, setPaidPrice] = useState<number | null>(null);
@@ -77,12 +77,11 @@ const Checkout = () => {
       const lastContent = lastPaid["Mô tả"];
       // Sửa lỗi so sánh giá trị và nội dung
       if (lastPrice == price && lastContent.includes(content)) {
-        alert("Thanh toán thành công");
         setIsSuccess(true);
         clearInterval(intervalId);
         removeFromCart(totalItems);
-        onSubmit(data);
-        window.location.href = "/";
+        handleSubmit(onSubmit)();
+
       } else {
         console.log("Chưa thanh toán hoặc thanh toán không thành công");
       }
@@ -95,25 +94,7 @@ const Checkout = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<FormData>({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      country: "",
-      city: "",
-      district: "",
-      ward: "",
-      streetAddress: "",
-      province: "",
-      phone: "",
-      productName: "",
-      price: 0,
-      count: 0,
-      totalPrice: "",
-      totalItem: 0,
-      total: 0,
-    },
-  });
+  } = useForm<FormData>();
   const { cartItems } = useSelector((state: RootState) => state.cart);
   const priceTotal = () => {
     let totalPrice = 0;
@@ -130,26 +111,6 @@ const Checkout = () => {
   const [cities, setCities] = useState<any[]>([]);
   const [districts, setDistricts] = useState<any[]>([]);
   const [wards, setWards] = useState<any[]>([]);
-
-  const handleLogin = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post<FormData>("http://localhost:3000/oder", {
-
-      });
-
-      const userData = response.data; // Thông tin người dùng từ API
-      localStorage.setItem("user", JSON.stringify(userData)); // Lưu vào localStorage
-
-      // Chuyển hướng đến trang người dùng
-
-      ;
-    } catch (error) {
-      console.error("Error logging in:", error);
-
-    }
-  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -205,63 +166,45 @@ const Checkout = () => {
     const selectedWardId = e.target.value;
     setSelectedWard(selectedWardId);
   };
-  const generateExcelFile = (data: FormData) => {
-    const totalItem = calculateTotalQuantity();
-    const totalPrice = priceTotal().toLocaleString();
+  const navigate = useNavigate();
+  const [orderDetails, setOrderDetails] = useState(null);
+  const onSubmit = async (data: FormData): Promise<void> => {
+    const formData = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      country: data.country,
+      city: cities.find((city) => city.Id === selectedCity)?.Name || "",
+      district: districts.find((district) => district.Id === selectedDistrict)?.Name || "",
+      ward: wards.find((ward) => ward.Id === selectedWard)?.Name || "",
+      streetAddress: data.streetAddress,
+      phone: data.phone,
+      productName: cartItems.map((item) => `${item.name} x ${item.count}`).join(", "),
+      price: priceTotal(),
+      count: calculateTotalQuantity(),
+      totalPrice: priceTotal(),
+      totalItem: calculateTotalQuantity(),
+      product: JSON.stringify(cartItems), // Assuming you want to send the whole cart as a product
+    };
 
-    // Cập nhật lại dữ liệu với số lượng và tổng giá trị
-    data.totalItem = totalItem;
-    data.totalPrice = totalPrice;
-
-    // Tạo một đối tượng chứa dữ liệu muốn gửi
-    const formData = new FormData();
-    formData.append('firstName', data.firstName);
-    formData.append('lastName', data.lastName);
-    formData.append('companyName', data.companyName || "");
-    formData.append('country', data.country);
-    formData.append('city', data.city);
-    formData.append('district', data.district);
-    formData.append('ward', data.ward);
-    formData.append('streetAddress', data.streetAddress);
-    formData.append('phone', data.phone);
-    formData.append('product', data.product);
-    formData.append('totalItem', data.totalItem.toString());
-    formData.append('totalPrice', data.totalPrice);
-
-    // Gửi dữ liệu về API Google Apps Script qua POST request
-    axios
-      .post(
-        "https://script.google.com/macros/s/AKfycbxg-7YIHqxxyJnENAbtmRAQo8nHT4CgZAwy6buCeQcKEMMKrur08-eP1mixeKCc3q_I/exec",
-        formData
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          alert("Dữ liệu đã được gửi thành công!");
-        }
-      })
-      .catch((error) => {
-        console.error("Error sending data:", error);
-        alert("Có lỗi khi gửi dữ liệu.");
-      });
+    try {
+      const response = await axios.post("http://localhost:3000/oder", formData);
+      console.log("Order submitted successfully:", response.data);
+      setOrderDetails(response.data);
+      navigate("/order", { state: { order: response.data } });
+      alert("Đặt hàng thành công!");
+    } catch (error) {
+      console.error("Lỗi khi gửi đơn hàng:", error);
+      alert("Không thể gửi đơn hàng. Vui lòng thử lại.");
+    }
   };
-  const onSubmit = (data: FormData) => {
-    data.city = cities.find((city) => city.Id === selectedCity)?.Name || "";
-    data.district =
-      districts.find((district) => district.Id === selectedDistrict)?.Name ||
-      "";
-    data.ward = wards.find((ward) => ward.Id === selectedWard)?.Name || "";
-    // Chèn danh sách sản phẩm vào đối tượng data
-    data.product = cartItems
-      .map((item) => `${item.name} x ${item.count}`)
-      .join(", ");
-    console.log("dataa", data)
-    // generateExcelFile(data);
-  };
+
   const onClick = (data: FormData) => {
+
     if (cartItems.length === 0) {
       alert("Bạn cần thêm sản phẩm vào giỏ hàng!");
       return;
     } else {
+      // onSubmit(data);
       handleButtonClick();
     }
   };
@@ -269,209 +212,176 @@ const Checkout = () => {
     dispatch(clearCart(totalItems));
   };
   return (
-    <div className="container md:grid grid-cols-2 mt-10">
-      <div className="col-span-1 space-y-5">
-        <h1 className="text-[36px] max-md:text-center font-semibold leading-[54px]">
-          Billing details
-        </h1>
-        <div className="w-full max-w-lg">
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <Controller
-                name="firstName"
-                control={control}
-                rules={{
-                  required: {
-                    message: "Trường này không được để trống",
-                    value: true,
-                  },
-                  pattern: {
-                    value: /^[A-Za-z]+$/i,
-                    message: "Không hợp lệ",
-                  },
-                }}
-                render={({ field: { onChange, value } }: any) => (
-                  <div>
-                    <label
-                      htmlFor="first_name"
-                      className="block tracking-wide text-[#000000] text-base text-[16px] font-medium mb-2"
-                    >
-                      Tên
-                    </label>
-                    <input
-                      type="text"
-                      value={value}
-                      onChange={onChange}
-                      className="appearance-none block w-full h-[75px] bg-[#FFFFFF] text-[#000000] border border-[#9F9F9F] rounded-[10px] py-3 px-4 mb-3 leading-tight focus:outline-none"
-                      required
-                    />
-                  </div>
-                )}
-              />
-              <span className="text-red-500">{errors.firstName?.message}</span>
-            </div>
-            <div className="w-full md:w-1/2 px-3">
-              <Controller
-                name="lastName"
-                control={control}
-                rules={{
-                  required: {
-                    message: "Trường này không được để trống",
-                    value: true,
-                  },
-                  pattern: {
-                    value: /^[A-Za-z]+$/i,
-                    message: "Không hợp lệ",
-                  },
-                }}
-                render={({ field: { onChange, value } }: any) => (
-                  <div>
-                    <label
-                      htmlFor="last_name"
-                      className="block tracking-wide text-[#000000] text-base text-[16px] font-medium mb-2"
-                    >
-                      Họ
-                    </label>
-                    <input
-                      type="text"
-                      value={value}
-                      onChange={onChange}
-                      className="appearance-none block w-full h-[75px] bg-[#FFFFFF] text-[#000000] border border-[#9F9F9F] rounded-[10px] py-3 px-4 mb-3 leading-tight focus:outline-none"
-                      required
-                    />
-                  </div>
-                )}
-              />
-              <span className="text-red-500">{errors.lastName?.message}</span>
-            </div>
-          </div>
-          <div className="inline-block relative w-full mb-6">
-            <label className="block tracking-wide text-[#000000] text-base text-[16px] font-medium mb-2">
-              Tỉnh / Thành phố
-            </label>
-            <select
-              id="city"
-              onChange={handleCityChange}
-              className="block appearance-none w-full h-[75px] bg-[#FFFFFF] border border-[#9F9F9F] px-4 py-3 pr-8 mb-3 rounded-[10px] shadow leading-tight focus:outline-none focus:shadow-outline"
-            >
-              <option value="">Chọn tỉnh / thành phố</option>
-              {cities.map((city) => (
-                <option key={city.Id} value={city.Id}>
-                  {city.Name}
-                </option>
-              ))}
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[#000000] mt-3">
-              <svg
-                className="fill-current h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-              </svg>
-            </div>
-          </div>
-          <div className="inline-block relative w-full mb-6">
-            <label className="block tracking-wide text-[#000000] text-base text-[16px] font-medium mb-2">
-              Quận / Huyện
-            </label>
-            <select
-              id="district"
-              onChange={handleDistrictChange}
-              className="block appearance-none w-full h-[75px] bg-[#FFFFFF] border border-[#9F9F9F] px-4 py-3 pr-8 mb-3 rounded-[10px] shadow leading-tight focus:outline-none focus:shadow-outline"
-            >
-              <option value="">Chọn quận / huyện</option>
-              {districts.map((district) => (
-                <option key={district.Id} value={district.Id}>
-                  {district.Name}
-                </option>
-              ))}
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[#000000] mt-3">
-              <svg
-                className="fill-current h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-              </svg>
-            </div>
-          </div>
-          <div className="inline-block relative w-full mb-6">
-            <label className="block tracking-wide text-[#000000] text-base text-[16px] font-medium mb-2">
-              Phường / Xã
-            </label>
-            <select
-              id="ward"
-              onChange={handleWardChange}
-              className="block appearance-none w-full h-[75px] bg-[#FFFFFF] border border-[#9F9F9F] px-4 py-3 pr-8 mb-3 rounded-[10px] shadow leading-tight focus:outline-none focus:shadow-outline"
-            >
-              <option value="">Chọn phường / xã</option>
-              {wards.map((ward) => (
-                <option key={ward.Id} value={ward.Id}>
-                  {ward.Name}
-                </option>
-              ))}
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[#000000] mt-3">
-              <svg
-                className="fill-current h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-              </svg>
-            </div>
-          </div>
-          <div className="inline-block relative w-full mb-6">
-            <Controller
-              name="streetAddress"
-              control={control}
-              rules={{
-                required: {
-                  message: "Trường này không được để trống",
-                  value: true,
-                },
-              }}
-              render={({ field: { onChange, value } }: any) => (
-                <div>
-                  <label className="block tracking-wide text-[#000000] text-[16px] text-base font-medium mb-2">
-                    Số nhà
-                  </label>
-                  <input
-                    type="text"
-                    value={value}
-                    onChange={onChange}
-                    className="appearance-none block w-full h-[75px] bg-[#FFFFFF] text-[#000000] border border-[#9F9F9F] rounded-[10px] py-3 px-4 mb-3 leading-tight focus:outline-none"
-                    required
-                  />
-                </div>
-              )}
-            />
-            <span className="text-red-500">
-              {errors.streetAddress?.message}
-            </span>
-          </div>
+    <div className="container">
+      <form className="md:flex justify-between mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <div className="md:w-[800px] space-y-5">
+          <h1 className="text-[36px] max-md:text-center font-semibold leading-[54px]">
+            Billing details
+          </h1>
 
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3">
+          <div className="w-full max-w-lg">
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <Controller
+                  name="firstName"
+                  control={control}
+                  rules={{
+                    required: {
+                      message: "Trường này không được để trống",
+                      value: true,
+                    },
+                    pattern: {
+                      value: /^[A-Za-z]+$/i,
+                      message: "Không hợp lệ",
+                    },
+                  }}
+                  render={({ field: { onChange, value } }: any) => (
+                    <div>
+                      <label
+                        htmlFor="first_name"
+                        className="block tracking-wide text-[#000000] text-base text-[16px] font-medium mb-2"
+                      >
+                        Tên
+                      </label>
+                      <input
+                        type="text"
+                        value={value}
+                        onChange={onChange}
+                        className="appearance-none block w-full h-[75px] bg-[#FFFFFF] text-[#000000] border border-[#9F9F9F] rounded-[10px] py-3 px-4 mb-3 leading-tight focus:outline-none"
+                        required
+                      />
+                    </div>
+                  )}
+                />
+                <span className="text-red-500">{errors.firstName?.message}</span>
+              </div>
+              <div className="w-full md:w-1/2 px-3">
+                <Controller
+                  name="lastName"
+                  control={control}
+                  rules={{
+                    required: {
+                      message: "Trường này không được để trống",
+                      value: true,
+                    },
+                    pattern: {
+                      value: /^[A-Za-z]+$/i,
+                      message: "Không hợp lệ",
+                    },
+                  }}
+                  render={({ field: { onChange, value } }: any) => (
+                    <div>
+                      <label
+                        htmlFor="last_name"
+                        className="block tracking-wide text-[#000000] text-base text-[16px] font-medium mb-2"
+                      >
+                        Họ
+                      </label>
+                      <input
+                        type="text"
+                        value={value}
+                        onChange={onChange}
+                        className="appearance-none block w-full h-[75px] bg-[#FFFFFF] text-[#000000] border border-[#9F9F9F] rounded-[10px] py-3 px-4 mb-3 leading-tight focus:outline-none"
+                        required
+                      />
+                    </div>
+                  )}
+                />
+                <span className="text-red-500">{errors.lastName?.message}</span>
+              </div>
+            </div>
+            <div className="inline-block relative w-full mb-6">
+              <label className="block tracking-wide text-[#000000] text-base text-[16px] font-medium mb-2">
+                Tỉnh / Thành phố
+              </label>
+              <select
+                id="city"
+                onChange={handleCityChange}
+                className="block appearance-none w-full h-[75px] bg-[#FFFFFF] border border-[#9F9F9F] px-4 py-3 pr-8 mb-3 rounded-[10px] shadow leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option value="">Chọn tỉnh / thành phố</option>
+                {cities.map((city) => (
+                  <option key={city.Id} value={city.Id}>
+                    {city.Name}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[#000000] mt-3">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+            <div className="inline-block relative w-full mb-6">
+              <label className="block tracking-wide text-[#000000] text-base text-[16px] font-medium mb-2">
+                Quận / Huyện
+              </label>
+              <select
+                id="district"
+                onChange={handleDistrictChange}
+                className="block appearance-none w-full h-[75px] bg-[#FFFFFF] border border-[#9F9F9F] px-4 py-3 pr-8 mb-3 rounded-[10px] shadow leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option value="">Chọn quận / huyện</option>
+                {districts.map((district) => (
+                  <option key={district.Id} value={district.Id}>
+                    {district.Name}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[#000000] mt-3">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+            <div className="inline-block relative w-full mb-6">
+              <label className="block tracking-wide text-[#000000] text-base text-[16px] font-medium mb-2">
+                Phường / Xã
+              </label>
+              <select
+                id="ward"
+                onChange={handleWardChange}
+                className="block appearance-none w-full h-[75px] bg-[#FFFFFF] border border-[#9F9F9F] px-4 py-3 pr-8 mb-3 rounded-[10px] shadow leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option value="">Chọn phường / xã</option>
+                {wards.map((ward) => (
+                  <option key={ward.Id} value={ward.Id}>
+                    {ward.Name}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[#000000] mt-3">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+            <div className="inline-block relative w-full mb-6">
               <Controller
-                name="phone"
+                name="streetAddress"
                 control={control}
                 rules={{
                   required: {
                     message: "Trường này không được để trống",
                     value: true,
-                  },
-                  pattern: {
-                    value: /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/,
-                    message: "Không hợp lệ",
                   },
                 }}
                 render={({ field: { onChange, value } }: any) => (
                   <div>
                     <label className="block tracking-wide text-[#000000] text-[16px] text-base font-medium mb-2">
-                      Số điện thoại
+                      Số nhà
                     </label>
                     <input
                       type="text"
@@ -483,116 +393,134 @@ const Checkout = () => {
                   </div>
                 )}
               />
-              <span className="text-red-500">{errors.phone?.message}</span>
+              <span className="text-red-500">
+                {errors.streetAddress?.message}
+              </span>
+            </div>
+
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full px-3">
+                <Controller
+                  name="phone"
+                  control={control}
+                  rules={{
+                    required: {
+                      message: "Trường này không được để trống",
+                      value: true,
+                    },
+                    pattern: {
+                      value: /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/,
+                      message: "Không hợp lệ",
+                    },
+                  }}
+                  render={({ field: { onChange, value } }: any) => (
+                    <div>
+                      <label className="block tracking-wide text-[#000000] text-[16px] text-base font-medium mb-2">
+                        Số điện thoại
+                      </label>
+                      <input
+                        type="text"
+                        value={value}
+                        onChange={onChange}
+                        className="appearance-none block w-full h-[75px] bg-[#FFFFFF] text-[#000000] border border-[#9F9F9F] rounded-[10px] py-3 px-4 mb-3 leading-tight focus:outline-none"
+                        required
+                      />
+                    </div>
+                  )}
+                />
+
+                <span className="text-red-500">{errors.phone?.message}</span>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="col-span-1 mt-12 space-y-3 container">
-        <div className="flex justify-between">
-          <p className="text-[24px] font-medium leading-[36px]">Product</p>
-          <p className="text-[24px] font-medium leading-[36px]">Subtotal</p>
-        </div>
-        {cartItems.map((item) => {
-          return (
-            <div className="flex justify-between">
-              <div>
-                <ul>
-                  <li className="text-[#9F9F9F] text-[16px] leading-[24px] font-normal">
-                    {item.name} x {item.count}
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <ul>
-                  <li className="font-light leading-[24px] text-[16px]">
-                    Rs. {item.price}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          );
-        })}
 
-        <div className="flex justify-between">
-          <p className="font-normal text-[16px] leading-[24px]">Total item</p>
-          <p className="font-light leading-[24px] text-[16px]">
-            {calculateTotalQuantity()}
-          </p>
         </div>
-        <div className="flex justify-between">
-          <p className="font-normal text-[16px] leading-[24px]">Total</p>
-          <p className="font-medium leading-[36px] text-[24px] text-[#B88E2F]">
-            Rs. {priceTotal().toLocaleString()}
-          </p>
-        </div>
-        <div className="border-b-2 border-[#D9D9D9]"></div>
-        <div className="space-y-5">
-          <div className="flex gap-5">
-            <div className="flex items-center mb-4">
-              <input
-                id="default-radio-1"
-                type="radio"
-                defaultValue=""
-                name="default-radio"
-                className="w-4 h-4 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600  "
-              />
-              <label
-                htmlFor="default-radio-1"
-                className="ml-2 text-sm font-medium "
-              >
-                Chuyển khoản trực tiếp bằng QR
-              </label>
-            </div>
+        <div className="md:w-[800px] mt-12 space-y-3 container">
+          <div className="flex justify-between">
+            <p className="text-[24px] font-medium leading-[36px]">Product</p>
+            <p className="text-[24px] font-medium leading-[36px]">Subtotal</p>
           </div>
-          <p className="font-light text-base  text-justify">
-            Thanh toán trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng Mã đơn hàng của bạn làm tham chiếu thanh toán. Đơn hàng của bạn sẽ không được chuyển cho đến khi tiền được chuyển vào tài khoản của chúng tôi.
-          </p>
+          {cartItems.map((item) => {
+            return (
+              <div className="flex justify-between">
+                <div>
+                  <ul>
+                    <li className="text-[#9F9F9F] text-[16px] leading-[24px] font-normal">
+                      {item.name} x {item.count}
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <ul>
+                    <li className="font-light leading-[24px] text-[16px]">
+                      Giá. {item.price}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
 
-          <div className="flex items-center">
-            <input
-              defaultChecked
-              id="default-radio-2"
-              type="radio"
-              defaultValue=""
-              name="default-radio"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-[#9F9F9F] focus:ring-blue-500 dark:focus:ring-blue-600 "
-            />
-            <label
-              htmlFor="default-radio-2"
-              className="ml-2 text-sm font-medium  "
+          <div className="flex justify-between">
+            <p className="font-normal text-[16px] leading-[24px]">Total item</p>
+            <p className="font-light leading-[24px] text-[16px]">
+              {calculateTotalQuantity()}
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <p className="font-normal text-[16px] leading-[24px]">Total</p>
+            <p className="font-medium leading-[36px] text-[24px] text-[#B88E2F]">
+              Rs. {priceTotal()}
+            </p>
+          </div>
+          <div className="border-b-2 border-[#D9D9D9]"></div>
+          <div className="space-y-5">
+            <div className="flex gap-5">
+              <div className="flex items-center mb-4">
+                <input
+                  id="default-radio-1"
+                  type="radio"
+                  defaultValue=""
+                  name="default-radio"
+                  className="w-4 h-4 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600  "
+                />
+                <label
+                  htmlFor="default-radio-1"
+                  className="ml-2 text-sm font-medium "
+                >
+                  Chuyển khoản trực tiếp bằng QR
+                </label>
+              </div>
+            </div>
+            <p className="font-light text-base  text-justify">
+              Thanh toán trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng Mã đơn hàng của bạn làm tham chiếu thanh toán. Đơn hàng của bạn sẽ không được chuyển cho đến khi tiền được chuyển vào tài khoản của chúng tôi.
+            </p>
+            <div className="max-md:items-center flex mx-auto justify-center max-md:mb-20"><button
+              onClick={handleSubmit(onClick)}
+              className="border border-[#000000] rounded-2xl  bg-white w-[318px] h-[64px] font-normal text-xl md:ml-20"
+              type="submit"
             >
-              Thanh toán khi nhận hàng
-            </label>
-          </div>
-          <p className="text-base font-light text-justify">
-            Dữ liệu cá nhân của bạn sẽ được sử dụng để hỗ trợ trải nghiệm của bạn trên toàn bộ trang web này, để quản lý quyền truy cập vào tài khoản của bạn và cho các mục đích khác được mô tả trong chính sách bảo mật của chúng tôi.
-          </p>
-          <div className="max-md:items-center flex mx-auto justify-center max-md:mb-20"><button
-            onClick={handleSubmit(onClick)}
-            className="border border-[#000000] rounded-2xl  bg-white w-[318px] h-[64px] font-normal text-xl md:ml-20"
-            type="submit"
-          >
-            Đặt hàng
-          </button></div>
-          {paidContent && (
-            <div>
-              {/* <p>
+              Đặt hàng
+            </button></div>
+            {paidContent && (
+              <div>
+                {/* <p>
                 <strong>Nội dung chuyển khoản:</strong> {paidContent}
               </p>
               <p>
                 <strong>Số tiền cần thanh toán:</strong>{" "}
-                {priceTotal().toLocaleString()}
+                {priceTotal()}
               </p> */}
-              {courseQR && (
-                <div className="mt-4">
-                  <img src={courseQR} alt="QR Code" />
-                </div>
-              )}
-            </div>
-          )}
+                {courseQR && (
+                  <div className="mt-4">
+                    <img src={courseQR} alt="QR Code" />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

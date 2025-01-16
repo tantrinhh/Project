@@ -125,7 +125,7 @@ const Main = () => {
 
             <div className="text-[#9F9F9F] font-medium text-2xl leading-9">
               Giá :
-              {itemDetail[0].price.toLocaleString()}
+              {itemDetail[0].price} đ
             </div>
             <div className="flex gap-4 my-5">
               <div>

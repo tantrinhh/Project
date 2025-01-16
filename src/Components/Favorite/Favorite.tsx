@@ -55,19 +55,19 @@ const Favorites: React.FC = () => {
                     {product.discount > 0 ? (
                       <div className="flex items-center">
                         <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                          Rp {product.price.toLocaleString()}
+                          Rp {product.price}
                         </h3>
                         <span className="text-[16px] text-[#B0B0B0] line-through ml-3">
                           Rp{" "}
                           {(
                             product.price +
                             product.price * (product.discount / 100)
-                          ).toLocaleString()}
+                          )}
                         </span>
                       </div>
                     ) : (
                       <h3 className="font-bold text-[20px] text-[#3A3A3A]">
-                        Rp {product.price.toLocaleString()}
+                        Rp {product.price}
                       </h3>
                     )}
                   </div>

@@ -106,7 +106,7 @@ const ProductComparison = () => {
                           {item.name}
                         </h1>
                         <p className="text-[18px] font-medium leading-[27px]">
-                          Rs. {item.price.toLocaleString()}
+                          Rs. {item.price}
                         </p>
                         <div className="flex gap-1">
                           <p className="text-18px font-medium leading-[27px]">
@@ -162,7 +162,7 @@ const ProductComparison = () => {
                         <div className="mt-14 flex gap-10 w-56">
                           <ul>
                             <li className="text-xl font-normal mt-2">
-                              Rs. {item.price.toLocaleString()}
+                              Rs. {item.price}
                             </li>
                             <li className="text-base font-normal mt-5 flex flex-row space-x-2">
                               {sizes?.map((item: any, index: any) => (

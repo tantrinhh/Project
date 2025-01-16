@@ -92,7 +92,7 @@ const Header = () => {
               </div>
               <div className="hover:text-[#B88E2F]">
                 <Link to="/blog" onClick={scrollToTop}>
-                Về chúng tôi
+                  Về chúng tôi
                 </Link>
               </div>
 
@@ -175,7 +175,7 @@ const Header = () => {
                                 {item.sizes}
                               </td>
                               <td className="px-6 py-4">
-                                Rs. {item.price.toLocaleString()}
+                                Rs. {item.price}
                               </td>
                               <td className="px-6 py-4">
                                 <div className="quantity-buttons">
@@ -202,7 +202,7 @@ const Header = () => {
                                   </div>
                                 </div>
                               </td>
-                              <td>Rs. {totalPrice.toLocaleString()}</td>
+                              <td>Rs. {totalPrice}</td>
                               <td>
                                 {" "}
                                 <TiDelete
@@ -233,7 +233,7 @@ const Header = () => {
                   <div className="flex justify-between mt-5">
                     <p className="text-base font-normal">Total price</p>
                     <p className="font-semibold text-[#B88E2F] text-base">
-                      Rs. {priceTotal().toLocaleString()}
+                      Rs. {priceTotal()}
                     </p>
                   </div>
                   <div className="w-full mt-5">
@@ -259,9 +259,8 @@ const Header = () => {
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
-              className={`transform ${
-                isMobileMenuOpen ? "rotate-90" : "rotate-0"
-              } transition-transform duration-300 ease-in-out`}
+              className={`transform ${isMobileMenuOpen ? "rotate-90" : "rotate-0"
+                } transition-transform duration-300 ease-in-out`}
             >
               <HiOutlinePlus
                 style={{
@@ -286,7 +285,7 @@ const Header = () => {
                     Furniro
                   </div>
                 </div>
-           
+
               </div>
               <ul className="list-none pt-5 flex flex-col items-center gap-y-7 font-medium text-lg leading-6">
                 <div className="hover:text-[#B88E2F]">

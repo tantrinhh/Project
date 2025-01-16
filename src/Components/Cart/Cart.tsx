@@ -126,7 +126,7 @@ const Cart = () => {
                       </td>
                       <td className="px-6 py-4 uppercase">{item.sizes}</td>
                       <td className="px-6 py-4">
-                        Rs.{item.price.toLocaleString()}
+                        Rs.{item.price}
                       </td>
                       <td className="px-2 py-4">
                         <div className="quantity-buttons">
@@ -150,7 +150,7 @@ const Cart = () => {
                         </div>
                       </td>
                       <td className="pl-10">
-                        Rs.{totalPrice.toLocaleString()}
+                        Rs.{totalPrice}
                       </td>
                       <td>
                         {" "}
@@ -190,7 +190,7 @@ const Cart = () => {
                 Tổng tiền
               </div>
               <div className="font-mediun text-xl leading-[30px] text-[#B88E2F]">
-                Rs. {priceTotal().toLocaleString()}
+                Rs. {priceTotal()}
               </div>
             </div>
             <div>

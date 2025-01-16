@@ -9,6 +9,7 @@ import Cart from "./pages/cart";
 import Home from "./pages/home";
 import { ToastContainer } from "react-toastify";
 import Favorite from "./pages/favorite";
+import Test from "./pages/order";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/test" element={<Test />} />
+
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/cart" element={<Cart />} />
